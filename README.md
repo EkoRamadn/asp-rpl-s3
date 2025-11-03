@@ -81,13 +81,11 @@ NEXT_PUBLIC_API_URL=https://api.example.com
 
 ## 📄 Lisensi
 
-Proyek ini dirilis di bawah lisensi [CC BY-ND](LICENSE).
+Proyek di bawah lisensi [CC BY-ND](LICENSE).
 
 ---
 
 ## 🤝 Kontributor
-
-Proyek ini dikembangkan oleh tim yang berdedikasi untuk menghadirkan solusi digital dalam pendataan absensi siswi haid di sekolah.
 
 * **Eko Ramadani** — [@EkoRamadn](https://github.com/EkoRamadn)
   *"User GPT Plant-Free only"*
@@ -98,5 +96,5 @@ Proyek ini dikembangkan oleh tim yang berdedikasi untuk menghadirkan solusi digi
 * **Firman Syah** — [@FirmanSyah2078](https://github.com/FirmanSyah2078)
   *"Knowlage Programming HTML."*
 
-> Terima kasih atas kerja keras dan kolaborasi luar biasa yang membuat proyek ini terwujud!
+
 
