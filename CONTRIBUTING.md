@@ -1,6 +1,6 @@
 
 
-# 🧩 Pedoman Kontribusi Proyek (CONTRIBUTING.md)
+# 🧩 Pedoman Kontribusi Proyek
 
 Dokumen ini berisi **aturan commit, push, dan kolaborasi Git/GitHub** untuk menjaga agar pengembangan proyek tetap rapi, terstruktur, dan mudah dikontrol oleh seluruh tim.
 
@@ -80,7 +80,7 @@ feat: (backend) auth user login
 
 ---
 
-## 🔄 Alur Kerja (Workflow) Harian
+## 🔄 Alur Kerja 
 
 Langkah-langkah kerja harian agar kolaborasi tetap sinkron dan aman:
 
@@ -112,7 +112,7 @@ Langkah-langkah kerja harian agar kolaborasi tetap sinkron dan aman:
 
 ---
 
-## 🧩 Menyelesaikan Konflik (Conflict Resolution)
+## 🧩 Menyelesaikan Konflik 
 
 Jika muncul konflik saat merge:
 
@@ -170,13 +170,13 @@ hotfix/deploy-error-vercel
 
 ### 🔹 Penamaan File / Folder
 
-* Gunakan **kebab-case** untuk nama file dan folder.
+* Gunakan **camel-case** untuk nama file.
 
   ```
-  ✅ login-page.tsx
-  ✅ user-profile-card.tsx
-  ❌ LoginPage.tsx
-  ❌ userProfileCard.tsx
+  ❌ login-page.tsx
+  ❌ user-profile-card.tsx
+  ✅ LoginPage.tsx
+  ✅ userProfileCard.tsx
   ```
 
 ---
@@ -253,23 +253,9 @@ Agar PR mudah direview:
 
 ---
 
-## 🚀 Deployment & Release
-
-1. Semua penggabungan ke `main` hanya dilakukan oleh maintainer.
-2. Sebelum merge ke `main`, branch `dev` harus:
-
-   * Sudah lulus testing.
-   * Sudah direview.
-   * Tidak ada konflik.
-3. Setelah merge ke `main`, otomatis atau manual dilakukan **deployment** (misalnya ke Vercel, Netlify, atau server lain).
-
----
-
 ## 🧠 Etika Kolaborasi
 
-* Hormati kode dan kontribusi tim lain.
-* Jangan hapus atau ubah kode orang lain tanpa diskusi.
-* Jika menemukan bug, buat issue atau PR dengan jelas.
+* Jangan hapus atau ubah kode orang lain tanpa konfirmasi.
 * Gunakan komentar kode bila diperlukan untuk menjelaskan logika.
 
 ---
@@ -283,5 +269,5 @@ Agar PR mudah direview:
 
 ---
 
-**Selamat berkontribusi dan semoga kolaborasi kita lancar 🚀**
+
 
