@@ -276,12 +276,7 @@ Agar PR mudah direview:
 
 ## 📣 Catatan Akhir
 
-Pedoman ini dibuat agar seluruh tim dapat:
-
-* Menjaga kualitas kode.
-* Mempermudah review dan integrasi.
-* Meminimalkan konflik antar branch.
-* Meningkatkan produktivitas dan profesionalitas kerja tim.
+> Jangan gunakan Keyword `--force`, `-f` saat commit maupun push
 
 > Selalu berkoordinasi dengan tim sebelum melakukan perubahan besar.
 
