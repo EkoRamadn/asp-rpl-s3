@@ -70,10 +70,11 @@ Gunakan format **konvensional** agar histori commit mudah dibaca dan dilacak.
 ### Contoh:
 ```
 
-feat: tambah halaman login user
-fix: perbaiki layout navbar di mobile
-refactor: pisahkan komponen button jadi reusable
+feat: (frontend) tambah halaman login user
+fix: (frontend) perbaiki layout navbar di mobile
+refactor: (frontend) pisahkan komponen button jadi reusable
 docs: tambah panduan setup environment
+feat: (backend) auth user login
 
 ````
 
