@@ -49,3 +49,6 @@ vitest.config.ts
 vitest.shims.d.ts
 stories
 .storybook
+
+#pnpm
+pnpm-lock.yaml
