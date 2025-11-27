@@ -29,6 +29,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { Icon } from "@iconify/react";
 
 export function NavUser({
   user,
@@ -44,11 +45,12 @@ export function NavUser({
   return (
     <SidebarMenu>
       <SidebarMenuItem>
-        <DropdownMenu>
+        <DropdownMenu >
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              variant="default"
+              className="border-2 rounded-md data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground h-[60px]"
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user.avatar} alt={user.name} />
@@ -58,11 +60,14 @@ export function NavUser({
                 <span className="truncate font-medium">{user.name}</span>
                 <span className="truncate text-xs">{user.email}</span>
               </div>
-              <ChevronsUpDown className="ml-auto size-4" />
+              {/* <ChevronsUpDown className="ml-auto size-4" /> */}
+              <div>
+                <Icon icon="uil:setting" className="size-5 ml-auto" />
+              </div>
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
+            className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg border-3 border-sidebar-accent"
             side={isMobile ? "bottom" : "right"}
             align="end"
             sideOffset={4}
@@ -79,27 +84,27 @@ export function NavUser({
                 </div>
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuSeparator />
+            {/* <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <Sparkles />
                 Upgrade to Pro
               </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator /> */}
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <BadgeCheck />
                 Account
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              {/* <DropdownMenuItem>
                 <CreditCard />
                 Billing
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Bell />
                 Notifications
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
