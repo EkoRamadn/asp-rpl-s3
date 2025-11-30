@@ -45,5 +45,3 @@ supabase
 
 # pnpm-lock
 pnpm-lock.yaml
-
-register/
