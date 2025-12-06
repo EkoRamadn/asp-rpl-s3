@@ -55,7 +55,6 @@ export async function middleware(req: NextRequest) {
 
     return response;
   } catch (error: unknown) {
-
     if (isIError(error)) {
       errorData = error;
     } else if (error instanceof Error) {
