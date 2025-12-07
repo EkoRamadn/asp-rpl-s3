@@ -55,8 +55,6 @@ export async function middleware(req: NextRequest) {
 
     return response;
   } catch (error: unknown) {
-    console.error('JWT verification failed:', error);
-
     if (isIError(error)) {
       errorData = error;
     } else if (error instanceof Error) {

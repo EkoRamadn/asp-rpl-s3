@@ -9,7 +9,7 @@
     "lint": "eslint",
     "format": "prettier --write .",
     "format:check": "bun x prettier ./src --check",
-    "test:db": "npx tsx ./src/test/db.test.ts"
+    "test:db": "pnpm exec tsx ./src/test/db.test.ts"
   },
   "dependencies": {
     "@next/env": "^15.5.4",
@@ -38,6 +38,8 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "prettier": "^3.6.2",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.6",
     "typescript": "^5"
   }
 }
