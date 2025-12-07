@@ -18,20 +18,20 @@
     "dotenv": "^17.2.3",
     "jose": "^6.1.0",
     "kjua": "^0.10.0",
-    "next": "15.5.4",
+    "next": "16.0.7",
     "pg": "^8.16.3",
     "qrcode": "^1.5.4",
     "qrcode-generator": "^2.0.4",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react": "19.2.1",
+    "react-dom": "19.2.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^20",
+    "@types/node": "^24.10.1",
     "@types/pg": "^8.15.5",
     "@types/qrcode": "^1.5.5",
-    "@types/react": "^19",
+    "@types/react": "^19.2.7",
     "@types/react-dom": "^19",
     "eslint": "^9.37.0",
     "eslint-config-next": "15.5.4",
@@ -40,6 +40,6 @@
     "prettier": "^3.6.2",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.6",
-    "typescript": "^5"
+    "typescript": "^5.9.3"
   }
 }
