@@ -36,7 +36,7 @@ export default function LoginPage() {
         <div className="bg-[#060610] w-full min-h-screen text-white font-sans p-2.5 gap-[30px] flex flex-col items-center justify-center ">
             <div className="flex flex-row w-full h-fit items-center justify-center">
                 <Image
-                    src="/A.svg"
+                    src="/logo.svg"
                     alt="ghfhg"
                     className="w-14 h-[67px]"
                     width={60}
