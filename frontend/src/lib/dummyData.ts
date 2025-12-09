@@ -1,0 +1,167 @@
+export const usersData = [
+  {
+    id: 1,
+    name: "Arganata",
+    username: "Woz",
+    password: "123",
+    role: "Admin"
+  },
+  {
+    id: 1,
+    name: "Arganata",
+    username: "Pelaksana",
+    password: "123",
+    role: "Pelaksana"
+  }
+];
+
+export const historyData = [
+    { id: 1, name: "Lorem ipsum dolor sit Dhuhr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Dhuhr" },
+    { id: 2, name: "Lorem ipsum dolor sit Dhuhr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Dhuhr" },
+    { id: 3, name: "Lorem ipsum dolor sit Dhuhr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Dhuhr" },
+    { id: 4, name: "Lorem ipsum dolor sit Dhuhr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Dhuhr" },
+    { id: 5, name: "Lorem ipsum dolor sit Dhuhr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Dhuhr" },
+    { id: 6, name: "Lorem ipsum dolor sit Dhuhr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Dhuhr" },
+    { id: 7, name: "Lorem ipsum dolor sit Asr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Asr" },
+    { id: 8, name: "Lorem ipsum dolor sit Asr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Asr" },
+    { id: 9, name: "Lorem ipsum dolor sit Asr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Asr" },
+    { id: 10, name: "Lorem ipsum dolor sit Asr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Asr" },
+    { id: 11, name: "Lorem ipsum dolor sit Asr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Asr" },
+    { id: 12, name: "Lorem ipsum dolor sit Asr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Asr" },
+    { id: 13, name: "Lorem ipsum dolor sit Dhuhr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Dhuhr" },
+    { id: 14, name: "Lorem ipsum dolor sit Dhuhr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Dhuhr" },
+    { id: 15, name: "Lorem ipsum dolor sit Dhuhr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Dhuhr" },
+    { id: 16, name: "Lorem ipsum dolor sit Dhuhr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Dhuhr" },
+    { id: 17, name: "Lorem ipsum dolor sit Dhuhr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Dhuhr" },
+    { id: 18, name: "Lorem ipsum dolor sit Dhuhr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Dhuhr" },
+    { id: 19, name: "Lorem ipsum dolor sit Asr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Asr" },
+    { id: 20, name: "Lorem ipsum dolor sit Asr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Asr" },
+    { id: 21, name: "Lorem ipsum dolor sit Asr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Asr" },
+    { id: 22, name: "Lorem ipsum dolor sit Asr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Asr" },
+    { id: 23, name: "Lorem ipsum dolor sit Asr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Asr" },
+    { id: 24, name: "Lorem ipsum dolor sit Asr", kelas: "XI MIPA 2", nis: "0123456789", waktu: "09:05:56", sesi: "Asr" },
+
+];
+
+
+export const studentsData = [
+  // A (1–10)
+  { id: 1, name: "Aldo Pramana", nis: "0100000001", kelas: "XI MIPA 1", wali: "Bapak Surya" },
+  { id: 2, name: "Alya Rahmadani", nis: "0100000002", kelas: "XI IPS 1", wali: "Ibu Rina" },
+  { id: 3, name: "Arga Mahendra", nis: "0100000003", kelas: "XI MIPA 2", wali: "Bapak Firlian" },
+  { id: 4, name: "Aulia Salsabila", nis: "0100000004", kelas: "X IPA 1", wali: "Ibu Siti" },
+  { id: 5, name: "Afan Prasetyo", nis: "0100000005", kelas: "X IPS 2", wali: "Bapak Yusron" },
+  { id: 6, name: "Anisa Putri", nis: "0100000006", kelas: "XI BAHASA", wali: "Ibu Sri" },
+  { id: 7, name: "Arlin Natasya", nis: "0100000007", kelas: "XII MIPA 1", wali: "Bapak Joko" },
+  { id: 8, name: "Azhar Firmansyah", nis: "0100000008", kelas: "X AGAMA 2", wali: "Bapak Hendri" },
+  { id: 9, name: "Aqila Zahra", nis: "0100000009", kelas: "X MIPA 3", wali: "Ibu Maya" },
+  { id: 10, name: "Arvino Pradipta", nis: "0100000010", kelas: "XI IPS 3", wali: "Ibu Reni" },
+
+  // B (11–20)
+  { id: 11, name: "Bima Saputra", nis: "0100000011", kelas: "XI MIPA 1", wali: "Bapak Surya" },
+  { id: 12, name: "Bilqis Amalia", nis: "0100000012", kelas: "XI IPS 2", wali: "Ibu Rina" },
+  { id: 13, name: "Bagus Pradana", nis: "0100000013", kelas: "XII IPS 1", wali: "Bapak Yusron" },
+  { id: 14, name: "Bella Kristina", nis: "0100000014", kelas: "XI BAHASA", wali: "Ibu Sri" },
+  { id: 15, name: "Brandon Alexander", nis: "0100000015", kelas: "X MIPA 4", wali: "Bapak Joko" },
+  { id: 16, name: "Bryan Naufal", nis: "0100000016", kelas: "X IPA 2", wali: "Ibu Siti" },
+  { id: 17, name: "Belinda Putri", nis: "0100000017", kelas: "XI MIPA 3", wali: "Bapak Firlian" },
+  { id: 18, name: "Berlian Cahya", nis: "0100000018", kelas: "X AGAMA 1", wali: "Bapak Hendri" },
+  { id: 19, name: "Baginda Syah", nis: "0100000019", kelas: "XII IPS 3", wali: "Ibu Reni" },
+  { id: 20, name: "Brigita Sari", nis: "0100000020", kelas: "XI MIPA 2", wali: "Ibu Maya" },
+
+  // C (21–30)
+  { id: 21, name: "Candra Wirawan", nis: "0100000021", kelas: "XI MIPA 3", wali: "Bapak Surya" },
+  { id: 22, name: "Cindy Marlina", nis: "0100000022", kelas: "XI IPS 1", wali: "Ibu Rina" },
+  { id: 23, name: "Cahyo Permana", nis: "0100000023", kelas: "XII MIPA 1", wali: "Bapak Joko" },
+  { id: 24, name: "Clara Indah", nis: "0100000024", kelas: "XI BAHASA", wali: "Ibu Sri" },
+  { id: 25, name: "Ciko Ramadhan", nis: "0100000025", kelas: "X IPS 1", wali: "Bapak Yusron" },
+  { id: 26, name: "Chelsea Anindya", nis: "0100000026", kelas: "XII IPS 2", wali: "Ibu Reni" },
+  { id: 27, name: "Cavin Julian", nis: "0100000027", kelas: "XI AGAMA 1", wali: "Bapak Hendri" },
+  { id: 28, name: "Cika Rahma", nis: "0100000028", kelas: "X MIPA 2", wali: "Ibu Maya" },
+  { id: 29, name: "Chandra Kusuma", nis: "0100000029", kelas: "XI IPS 3", wali: "Bapak Surya" },
+  { id: 30, name: "Calista Putri", nis: "0100000030", kelas: "X IPA 3", wali: "Ibu Siti" },
+
+  // D (31–40)
+  { id: 31, name: "Daffa Pratama", nis: "0100000031", kelas: "XI MIPA 1", wali: "Bapak Firlian" },
+  { id: 32, name: "Dian Ayu", nis: "0100000032", kelas: "XII IPS 2", wali: "Ibu Reni" },
+  { id: 33, name: "Dimas Setiawan", nis: "0100000033", kelas: "XI MIPA 2", wali: "Bapak Surya" },
+  { id: 34, name: "Della Febriani", nis: "0100000034", kelas: "XI BAHASA", wali: "Ibu Sri" },
+  { id: 35, name: "Daniel Surya", nis: "0100000035", kelas: "X MIPA 4", wali: "Bapak Joko" },
+  { id: 36, name: "Dewi Rahayu", nis: "0100000036", kelas: "XI AGAMA 1", wali: "Bapak Hendri" },
+  { id: 37, name: "Davin Aditya", nis: "0100000037", kelas: "XI IPS 3", wali: "Ibu Rina" },
+  { id: 38, name: "Dina Wulandari", nis: "0100000038", kelas: "X MIPA 1", wali: "Ibu Maya" },
+  { id: 39, name: "Darren Halim", nis: "0100000039", kelas: "X IPA 2", wali: "Ibu Siti" },
+  { id: 40, name: "Diora Suci", nis: "0100000040", kelas: "XII IPS 1", wali: "Bapak Yusron" },
+
+  // E (41–50)
+  { id: 41, name: "Eka Pratiwi", nis: "0100000041", kelas: "XI MIPA 1", wali: "Bapak Surya" },
+  { id: 42, name: "Eva Meilani", nis: "0100000042", kelas: "X IAS 3", wali: "Ibu Rina" },
+  { id: 43, name: "Erik Santoso", nis: "0100000043", kelas: "XII MIPA 2", wali: "Bapak Joko" },
+  { id: 44, name: "Elisa Nuraini", nis: "0100000044", kelas: "XI BAHASA", wali: "Ibu Sri" },
+  { id: 45, name: "Evan Putra", nis: "0100000045", kelas: "X IPS 1", wali: "Bapak Yusron" },
+  { id: 46, name: "Elliana Dinda", nis: "0100000046", kelas: "XI MIPA 2", wali: "Bapak Firlian" },
+  { id: 47, name: "Eko Prasetyo", nis: "0100000047", kelas: "X AGAMA 3", wali: "Bapak Hendri" },
+  { id: 48, name: "Evelyn Clara", nis: "0100000048", kelas: "XI IPS 2", wali: "Ibu Reni" },
+  { id: 49, name: "Elang Mahesa", nis: "0100000049", kelas: "XII IPS 3", wali: "Bapak Yusron" },
+  { id: 50, name: "Erina Sari", nis: "0100000050", kelas: "X MIPA 3", wali: "Ibu Maya" },
+
+  // F (51–60)
+  { id: 51, name: "Fadhil Rahman", nis: "0100000051", kelas: "XI MIPA 3", wali: "Bapak Surya" },
+  { id: 52, name: "Farah Nabila", nis: "0100000052", kelas: "XI IPS 1", wali: "Ibu Rina" },
+  { id: 53, name: "Fikri Hidayat", nis: "0100000053", kelas: "XII IPS 2", wali: "Ibu Reni" },
+  { id: 54, name: "Fiona Aurelia", nis: "0100000054", kelas: "XI BAHASA", wali: "Ibu Sri" },
+  { id: 55, name: "Farel Mahardika", nis: "0100000055", kelas: "X MIPA 4", wali: "Bapak Joko" },
+  { id: 56, name: "Felisha Amanda", nis: "0100000056", kelas: "XI AGAMA 1", wali: "Bapak Hendri" },
+  { id: 57, name: "Fauzan Ahsan", nis: "0100000057", kelas: "XI IPS 3", wali: "Bapak Yusron" },
+  { id: 58, name: "Feby Rachma", nis: "0100000058", kelas: "X IPA 2", wali: "Ibu Siti" },
+  { id: 59, name: "Fandi Kusuma", nis: "0100000059", kelas: "XII MIPA 1", wali: "Bapak Firlian" },
+  { id: 60, name: "Fanya Lestari", nis: "0100000060", kelas: "X MIPA 2", wali: "Ibu Maya" },
+
+  // G (61–70)
+  { id: 61, name: "Galang Putra", nis: "0100000061", kelas: "XI MIPA 3", wali: "Bapak Surya" },
+  { id: 62, name: "Gita Anjani", nis: "0100000062", kelas: "XI IPS 1", wali: "Ibu Rina" },
+  { id: 63, name: "Gilang Saputra", nis: "0100000063", kelas: "XII MIPA 2", wali: "Bapak Joko" },
+  { id: 64, name: "Gloria Natalia", nis: "0100000064", kelas: "XI BAHASA", wali: "Ibu Sri" },
+  { id: 65, name: "Gerry Fernando", nis: "0100000065", kelas: "X MIPA 1", wali: "Ibu Maya" },
+  { id: 66, name: "Gisel Maharani", nis: "0100000066", kelas: "XI IPS 3", wali: "Ibu Reni" },
+  { id: 67, name: "Guntur Sakti", nis: "0100000067", kelas: "XII IPS 1", wali: "Bapak Yusron" },
+  { id: 68, name: "Grace Lestari", nis: "0100000068", kelas: "X AGAMA 2", wali: "Bapak Hendri" },
+  { id: 69, name: "Gavin Umar", nis: "0100000069", kelas: "XI MIPA 2", wali: "Bapak Firlian" },
+  { id: 70, name: "Gabriella Putri", nis: "0100000070", kelas: "X MIPA 4", wali: "Ibu Siti" },
+
+  // H (71–80)
+  { id: 71, name: "Hadi Pratama", nis: "0100000071", kelas: "XI MIPA 1", wali: "Bapak Surya" },
+  { id: 72, name: "Hanna Fitriani", nis: "0100000072", kelas: "XI IPS 2", wali: "Ibu Rina" },
+  { id: 73, name: "Hanif Nur", nis: "0100000073", kelas: "X AGAMA 1", wali: "Bapak Hendri" },
+  { id: 74, name: "Hilda Cahya", nis: "0100000074", kelas: "XII IPS 3", wali: "Ibu Reni" },
+  { id: 75, name: "Helmi Kurniawan", nis: "0100000075", kelas: "XI AGAMA 2", wali: "Ibu Sri" },
+  { id: 76, name: "Hani Kartika", nis: "0100000076", kelas: "X MIPA 2", wali: "Ibu Maya" },
+  { id: 77, name: "Hafiz Ramadhan", nis: "0100000077", kelas: "XI IPS 1", wali: "Bapak Yusron" },
+  { id: 78, name: "Hera Susanti", nis: "0100000078", kelas: "XI BAHASA", wali: "Ibu Sri" },
+  { id: 79, name: "Harun Malik", nis: "0100000079", kelas: "XII MIPA 1", wali: "Bapak Firlian" },
+  { id: 80, name: "Haloira Putri", nis: "0100000080", kelas: "X MIPA 3", wali: "Ibu Siti" },
+
+  // I (81–90)
+  { id: 81, name: "Ilham Saputra", nis: "0100000081", kelas: "XI MIPA 3", wali: "Bapak Surya" },
+  { id: 82, name: "Indah Lestari", nis: "0100000082", kelas: "XI IPS 1", wali: "Ibu Rina" },
+  { id: 83, name: "Irfan Hidayat", nis: "0100000083", kelas: "XII MIPA 2", wali: "Bapak Joko" },
+  { id: 84, name: "Intan Safira", nis: "0100000084", kelas: "XI BAHASA", wali: "Ibu Sri" },
+  { id: 85, name: "Imam Pratama", nis: "0100000085", kelas: "XI IPS 3", wali: "Ibu Reni" },
+  { id: 86, name: "Icha Ramadhani", nis: "0100000086", kelas: "X MIPA 1", wali: "Ibu Maya" },
+  { id: 87, name: "Ivan Kurnia", nis: "0100000087", kelas: "XI AGAMA 2", wali: "Bapak Hendri" },
+  { id: 88, name: "Irma Dewi", nis: "0100000088", kelas: "XII IPS 1", wali: "Bapak Yusron" },
+  { id: 89, name: "Ibrahim Malik", nis: "0100000089", kelas: "X MIPA 4", wali: "Bapak Firlian" },
+  { id: 90, name: "Isabella Putri", nis: "0100000090", kelas: "XI IPS 2", wali: "Ibu Siti" },
+
+  // J (91–100)
+  { id: 91, name: "Jaka Prasetyo", nis: "0100000091", kelas: "XI MIPA 1", wali: "Bapak Surya" },
+  { id: 92, name: "Jihan Aulia", nis: "0100000092", kelas: "XI IPS 3", wali: "Ibu Rina" },
+  { id: 93, name: "Jordi Arianto", nis: "0100000093", kelas: "XII MIPA 1", wali: "Bapak Joko" },
+  { id: 94, name: "Juliana Kartika", nis: "0100000094", kelas: "XI BAHASA", wali: "Ibu Sri" },
+  { id: 95, name: "Jordan Putra", nis: "0100000095", kelas: "X AGAMA 1", wali: "Bapak Hendri" },
+  { id: 96, name: "Jasmine Putri", nis: "0100000096", kelas: "X MIPA 3", wali: "Ibu Maya" },
+  { id: 97, name: "Jerry Febrian", nis: "0100000097", kelas: "XI IPS 2", wali: "Ibu Reni" },
+  { id: 98, name: "Josef Adrian", nis: "0100000098", kelas: "XII IPS 3", wali: "Bapak Yusron" },
+  { id: 99, name: "Jovita Sari", nis: "0100000099", kelas: "XI MIPA 2", wali: "Bapak Firlian" },
+  { id: 100, name: "Juno Kurniawan", nis: "0100000100", kelas: "X MIPA 1", wali: "Ibu Siti" },
+];

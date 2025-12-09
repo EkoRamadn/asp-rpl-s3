@@ -1,3 +1,10 @@
-export default function Page() {
-  return <></>;
+import HeaderDesktop from '../../../components/custom/HeaderDesktop';
+function Database() {
+  return (
+    <>
+      <HeaderDesktop />
+    </>
+  );
 }
+
+export default Database
