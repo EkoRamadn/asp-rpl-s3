@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { SignJWT } from 'jose';
 import { supabase } from '@/lib/supabase';
+import { corsHeaders } from '@/lib/cors';
 
 const SECRET_KEY = process.env.JWT_SECRET || 'annon';
 const secret = new TextEncoder().encode(SECRET_KEY);
@@ -18,11 +19,7 @@ export async function POST(req: Request) {
       .limit(1)
       .maybeSingle();
 
-    if (adminError) {
-      console.error('Supabase Error:', adminError.message);
-    }
-
-    console.log(adminData)
+    if (adminError) throw new Error(adminError.message);
 
     if (adminData) {
       const token = await new SignJWT({
@@ -33,24 +30,32 @@ export async function POST(req: Request) {
         .setProtectedHeader({ alg: 'HS256' })
         .setExpirationTime('1h')
         .sign(secret);
-      const { data: updateSign, error: signError } = await supabase.from('tbl_petugas').update({ last_login: new Date() }).eq('id', adminData.id).select('last_login').single();
+      const { data: updateSign, error: signError } = await supabase
+        .from('tbl_petugas')
+        .update({ last_login: new Date() })
+        .eq('id', adminData.id)
+        .select('last_login')
+        .single();
 
-      if (signError) {
-        console.error('Supabase Error:', signError.message);
-      }
+      if (signError) throw new Error(signError.message);
 
-      console.log(updateSign);
-
-      return NextResponse.json({
-        code: 200,
-        status: 'success',
-        message: 'Login admin berhasil',
-        data: {
-          token,
-          role: adminData.role,
-          name: adminData.username,
+      return NextResponse.json(
+        {
+          code: 200,
+          status: 'success',
+          message: 'Login admin berhasil',
+          data: {
+            token,
+            role: adminData.role,
+            name: adminData.username,
+            update: updateSign,
+          },
         },
-      });
+        {
+          status: 200,
+          headers: corsHeaders,
+        }
+      );
     }
 
     return NextResponse.json(
@@ -59,7 +64,10 @@ export async function POST(req: Request) {
         status: 'fail',
         message: 'Username atau password salah',
       },
-      { status: 401 }
+      {
+        status: 401,
+        headers: corsHeaders,
+      }
     );
   } catch (err) {
     if (err instanceof Error) {
@@ -70,7 +78,10 @@ export async function POST(req: Request) {
           message: err.message,
           error: err.name,
         },
-        { status: 500 }
+        {
+          status: 500,
+          headers: corsHeaders,
+        }
       );
     }
 
@@ -81,7 +92,10 @@ export async function POST(req: Request) {
         message: 'Unexpected error',
         error: 'Unknown',
       },
-      { status: 500 }
+      {
+        status: 500,
+        headers: corsHeaders,
+      }
     );
   }
 }

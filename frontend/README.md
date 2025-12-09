@@ -79,8 +79,8 @@ View
 
 ### Note
 
-> Pastikan Menerapkan Git Flow setiap Perubahan komponen (ikuti intruksi [CONTIBUTING](../CONTRIBUTING.md)). 
+> Pastikan Menerapkan Git Flow setiap Perubahan komponen (ikuti intruksi [CONTIBUTING](../CONTRIBUTING.md)).
 
->Fokus Selesaikan komponen yang dikerjakan sebelum mengerjakan Komponen Lain.
+> Fokus Selesaikan komponen yang dikerjakan sebelum mengerjakan Komponen Lain.
 
->Jangan install Depedensi Baru Sebelum sebelum Konfirmasi. 
+> Jangan install Depedensi Baru Sebelum sebelum Konfirmasi.

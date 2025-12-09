@@ -40,7 +40,6 @@ const data = {
       url: '/dashboard',
       icon: SquareTerminal,
       isActive: true,
-
     },
     {
       title: 'Database',
@@ -56,7 +55,6 @@ const data = {
       title: 'Recapitulation',
       url: '/dashboard/recapitulation',
       icon: Settings2,
-
     },
   ],
 };
@@ -64,11 +62,11 @@ const data = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar variant="sidebar" {...props}>
-      <SidebarHeader >
-        <SidebarMenu >
-          <SidebarMenuItem >
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
             {/* <SidebarMenuButton className="mb-2 mt-1" asChild > */}
-            <Link href="/dashboard" className='flex items-center gap-2 mb-4 mt-2 pl-2'>
+            <Link href="/dashboard" className="flex items-center gap-2 mb-4 mt-2 pl-2">
               <div className="flex aspect-square size-8 items-center justify-center rounded-sm">
                 <Image src="/logo.svg" alt="Logo" width={45} height={48} />
               </div>
@@ -83,7 +81,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <NavMain items={data.navMain} />
       </SidebarContent>
-      <SidebarFooter className='*:bg-sidebar-accent'>
+      <SidebarFooter className="*:bg-sidebar-accent">
         <NavUser user={data.user} />
       </SidebarFooter>
     </Sidebar>

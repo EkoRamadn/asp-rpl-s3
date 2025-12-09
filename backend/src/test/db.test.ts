@@ -7,7 +7,7 @@ async function testSupabase() {
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   if (!url || !key) {
-    console.log('❌ Environment variable tidak ditemukan!');
+    console.log('Environment variable tidak ditemukan!');
     console.log('NEXT_PUBLIC_SUPABASE_URL:', url);
     console.log('NEXT_PUBLIC_SUPABASE_ANON_KEY:', key);
     return;
@@ -15,16 +15,16 @@ async function testSupabase() {
 
   const supabase = createClient(url, key);
 
-  console.log('🔍 Menguji koneksi Supabase...');
+  console.log('Menguji koneksi Supabase...');
 
   const { data, error } = await supabase.from('tbl_petugas').select('*');
 
   if (error) {
-    console.log('❌ Error saat koneksi atau query:');
+    console.log('Error saat koneksi atau query:');
     console.log(error);
   } else {
-    console.log('✅ Berhasil terhubung ke Supabase!');
-    console.log('📦 Data yang diterima:');
+    console.log('Berhasil terhubung ke Supabase!');
+    console.log('Data yang diterima:');
     console.log(data);
   }
 }
