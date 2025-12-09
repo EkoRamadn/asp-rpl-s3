@@ -7,6 +7,11 @@ import { error } from 'console';
 const SECRET_KEY = process.env.JWT_SECRET || 'annon';
 const secret = new TextEncoder().encode(SECRET_KEY);
 
+export async function OPTIONS() {
+  return NextResponse.json({}, { status: 200, headers: corsHeaders });
+}
+
+
 export async function POST(req: Request) {
   try {
     const { username, password }: { username: string; password: string } =
