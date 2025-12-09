@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { SignJWT } from 'jose';
 import { supabase } from '@/lib/supabase';
 import { corsHeaders } from '@/lib/cors';
+import { error } from 'console';
 
 const SECRET_KEY = process.env.JWT_SECRET || 'annon';
 const secret = new TextEncoder().encode(SECRET_KEY);
@@ -50,6 +51,7 @@ export async function POST(req: Request) {
             name: adminData.username,
             update: updateSign,
           },
+          error: null
         },
         {
           status: 200,
@@ -63,6 +65,8 @@ export async function POST(req: Request) {
         code: 401,
         status: 'fail',
         message: 'Username atau password salah',
+        data: null,
+        error: 'user not found'
       },
       {
         status: 401,
@@ -70,32 +74,15 @@ export async function POST(req: Request) {
       }
     );
   } catch (err) {
-    if (err instanceof Error) {
-      return NextResponse.json(
-        {
-          code: 500,
-          status: 'fail',
-          message: err.message,
-          error: err.name,
-        },
-        {
-          status: 500,
-          headers: corsHeaders,
-        }
-      );
-    }
-
     return NextResponse.json(
       {
         code: 500,
         status: 'fail',
-        message: 'Unexpected error',
-        error: 'Unknown',
+        message: err instanceof Error ? err.message : 'Unexpected error',
+        data: null,
+        error: err instanceof Error ? err.name : 'Unknown',
       },
-      {
-        status: 500,
-        headers: corsHeaders,
-      }
+      { status: 500, headers: corsHeaders }
     );
   }
 }

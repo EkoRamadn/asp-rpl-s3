@@ -1,5 +1,6 @@
 import { corsHeaders } from '@/lib/cors';
 import { supabase } from '@/lib/supabase';
+import { error } from 'console';
 import { NextResponse } from 'next/server';
 type Role = 'admin' | 'pengawas' | 'petugas';
 interface Petugas {
@@ -74,43 +75,29 @@ export async function GET(req: Request) {
       {
         code: 200,
         status: 'success',
-        data: petugasData,
-        pagination: {
-          page,
-          limit,
-          total_items: count,
-          total_pages: Math.ceil(count / limit),
+        data: {
+          petugas: petugasData,
+          pagination: {
+            page,
+            limit,
+            total_items: count,
+            total_pages: Math.ceil(count / limit),
+          },
         },
+        error: null
       },
       { status: 200, headers: corsHeaders }
     );
   } catch (err) {
-    if (err instanceof Error) {
-      return NextResponse.json(
-        {
-          code: 500,
-          status: 'fail',
-          message: err.message,
-          error: err.name,
-        },
-        {
-          status: 500,
-          headers: corsHeaders,
-        }
-      );
-    }
-
     return NextResponse.json(
       {
         code: 500,
         status: 'fail',
-        message: 'Unexpected error',
-        error: 'Unknown',
+        message: err instanceof Error ? err.message : 'Unexpected error',
+        data: null,
+        error: err instanceof Error ? err.name : 'Unknown',
       },
-      {
-        status: 500,
-        headers: corsHeaders,
-      }
+      { status: 500, headers: corsHeaders }
     );
   }
 }
@@ -148,6 +135,7 @@ export async function PUT(req: Request) {
         status: 'success',
         message: 'update petugas berhasil',
         data: petugasData,
+        error: null
       },
       {
         status: 200,
@@ -155,32 +143,15 @@ export async function PUT(req: Request) {
       }
     );
   } catch (err) {
-    if (err instanceof Error) {
-      return NextResponse.json(
-        {
-          code: 500,
-          status: 'fail',
-          message: err.message,
-          error: err.name,
-        },
-        {
-          status: 500,
-          headers: corsHeaders,
-        }
-      );
-    }
-
     return NextResponse.json(
       {
         code: 500,
         status: 'fail',
-        message: 'Unexpected error',
-        error: 'Unknown',
+        message: err instanceof Error ? err.message : 'Unexpected error',
+        data: null,
+        error: err instanceof Error ? err.name : 'Unknown',
       },
-      {
-        status: 500,
-        headers: corsHeaders,
-      }
+      { status: 500, headers: corsHeaders }
     );
   }
 }
@@ -212,6 +183,7 @@ export async function POST(req: Request) {
           status: 'success',
           message: 'Register petugas berhasil',
           data: registerData,
+          error: null
         },
         {
           status: 200,
@@ -224,6 +196,8 @@ export async function POST(req: Request) {
         code: 401,
         status: 'fail',
         message: 'kesalahan client',
+        data: null,
+        error: "client"
       },
       {
         status: 401,
@@ -231,32 +205,15 @@ export async function POST(req: Request) {
       }
     );
   } catch (err) {
-    if (err instanceof Error) {
-      return NextResponse.json(
-        {
-          code: 500,
-          status: 'fail',
-          message: err.message,
-          error: err.name,
-        },
-        {
-          status: 500,
-          headers: corsHeaders,
-        }
-      );
-    }
-
     return NextResponse.json(
       {
         code: 500,
         status: 'fail',
-        message: 'Unexpected error',
-        error: 'Unknown',
+        message: err instanceof Error ? err.message : 'Unexpected error',
+        data: null,
+        error: err instanceof Error ? err.name : 'Unknown',
       },
-      {
-        status: 500,
-        headers: corsHeaders,
-      }
+      { status: 500, headers: corsHeaders }
     );
   }
 }
@@ -276,39 +233,23 @@ export async function DELETE(req: Request) {
         status: 'success',
         message: 'meghapus data petugas berhasil',
         data: petugasData.map((petugas) => petugas.username),
+        error: null
       },
       {
         status: 200,
         headers: corsHeaders,
       }
     );
-  } catch (error) {
-    if (error instanceof Error) {
-      return NextResponse.json(
-        {
-          code: 500,
-          status: 'fail',
-          message: error.message,
-          error: error.name,
-        },
-        {
-          status: 500,
-          headers: corsHeaders,
-        }
-      );
-    }
-
+  } catch (err) {
     return NextResponse.json(
       {
         code: 500,
         status: 'fail',
-        message: 'Unexpected error',
-        error: 'Unknown',
+        message: err instanceof Error ? err.message : 'Unexpected error',
+        data: null,
+        error: err instanceof Error ? err.name : 'Unknown',
       },
-      {
-        status: 500,
-        headers: corsHeaders,
-      }
+      { status: 500, headers: corsHeaders }
     );
   }
 }

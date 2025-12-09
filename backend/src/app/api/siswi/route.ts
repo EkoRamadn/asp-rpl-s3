@@ -1,5 +1,6 @@
 import { corsHeaders } from '@/lib/cors';
 import { supabase } from '@/lib/supabase';
+import { error } from 'console';
 import { NextResponse } from 'next/server';
 
 type Siswi = {
@@ -88,46 +89,32 @@ export async function GET(req: Request) {
         code: 200,
         status: 'success',
         message: 'Data siswi berhasil diambil',
-        data: siswiData,
-        pagination: {
-          page,
-          limit,
-          total_items: count ?? 0,
-          total_pages: Math.ceil((count ?? 0) / limit),
+        data: {
+          siswi: siswiData,
+          pagination: {
+            page,
+            limit,
+            total_items: count ?? 0,
+            total_pages: Math.ceil((count ?? 0) / limit),
+          },
         },
+        error: null
       },
       {
         status: 200,
         headers: corsHeaders,
       }
     );
-  } catch (error) {
-    if (error instanceof Error) {
-      return NextResponse.json(
-        {
-          code: 500,
-          status: 'fail',
-          message: error.message,
-          error: error.name,
-        },
-        {
-          status: 500,
-          headers: corsHeaders,
-        }
-      );
-    }
-
+  } catch (err) {
     return NextResponse.json(
       {
         code: 500,
         status: 'fail',
-        message: 'Unexpected error',
-        error: 'Unknown',
+        message: err instanceof Error ? err.message : 'Unexpected error',
+        data: null,
+        error: err instanceof Error ? err.name : 'Unknown',
       },
-      {
-        status: 500,
-        headers: corsHeaders,
-      }
+      { status: 500, headers: corsHeaders }
     );
   }
 }
@@ -165,6 +152,7 @@ export async function PUT(req: Request) {
         status: 'success',
         message: 'Data siswa berhasil diupdate',
         data: siswiData,
+        erro: null
       },
       {
         status: 200,
@@ -178,6 +166,7 @@ export async function PUT(req: Request) {
           code: 500,
           status: 'fail',
           message: error.message,
+          data: null,
           error: error.name,
         },
         {
@@ -192,6 +181,7 @@ export async function PUT(req: Request) {
         code: 500,
         status: 'fail',
         message: 'Unexpected error',
+        data: null,
         error: 'Unknown',
       },
       {
@@ -240,39 +230,23 @@ export async function POST(req: Request) {
         status: 'success',
         message: 'menginput data siswa berhasil',
         data: siswiData,
+        error: null
       },
       {
         status: 200,
         headers: corsHeaders,
       }
     );
-  } catch (error) {
-    if (error instanceof Error) {
-      return NextResponse.json(
-        {
-          code: 500,
-          status: 'fail',
-          message: error.message,
-          error: error.name,
-        },
-        {
-          status: 500,
-          headers: corsHeaders,
-        }
-      );
-    }
-
+  } catch (err) {
     return NextResponse.json(
       {
         code: 500,
         status: 'fail',
-        message: 'Unexpected error',
-        error: 'Unknown',
+        message: err instanceof Error ? err.message : 'Unexpected error',
+        data: null,
+        error: err instanceof Error ? err.name : 'Unknown',
       },
-      {
-        status: 500,
-        headers: corsHeaders,
-      }
+      { status: 500, headers: corsHeaders }
     );
   }
 }
@@ -291,39 +265,23 @@ export async function DELETE(req: Request) {
         status: 'success',
         message: 'meghapus data siswa berhasil',
         data: siswiData,
+        error: null
       },
       {
         status: 200,
         headers: corsHeaders,
       }
     );
-  } catch (error) {
-    if (error instanceof Error) {
-      return NextResponse.json(
-        {
-          code: 500,
-          status: 'fail',
-          message: error.message,
-          error: error.name,
-        },
-        {
-          status: 500,
-          headers: corsHeaders,
-        }
-      );
-    }
-
+  } catch (err) {
     return NextResponse.json(
       {
         code: 500,
         status: 'fail',
-        message: 'Unexpected error',
-        error: 'Unknown',
+        message: err instanceof Error ? err.message : 'Unexpected error',
+        data: null,
+        error: err instanceof Error ? err.name : 'Unknown',
       },
-      {
-        status: 500,
-        headers: corsHeaders,
-      }
+      { status: 500, headers: corsHeaders }
     );
   }
 }

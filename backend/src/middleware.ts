@@ -3,6 +3,7 @@ import type { NextRequest } from 'next/server';
 import { jwtVerify } from 'jose';
 import { IError } from './types/response.type';
 import { isIError } from './lib/utils';
+import { corsHeaders } from './lib/cors';
 
 const SECRET_KEY = process.env.JWT_SECRET || 'rahasia';
 const secret = new TextEncoder().encode(SECRET_KEY);
@@ -32,7 +33,7 @@ export async function middleware(req: NextRequest) {
         message: 'Unauthorized. Please log in first',
         error: 'Token not found',
       },
-      { status: 401 }
+      { status: 401, headers: corsHeaders }
     );
   }
 
@@ -73,7 +74,7 @@ export async function middleware(req: NextRequest) {
       };
     }
 
-    return NextResponse.json(errorData, { status: 403 });
+    return NextResponse.json(errorData, { status: 403, headers: corsHeaders });
   }
 }
 

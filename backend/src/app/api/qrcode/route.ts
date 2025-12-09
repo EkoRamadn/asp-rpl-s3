@@ -1,17 +1,21 @@
 import { corsHeaders } from '@/lib/cors';
 import { supabase } from '@/lib/supabase';
+import { error } from 'console';
 import { NextResponse } from 'next/server';
 import QRCode from 'qrcode';
+
+interface QRData {
+  id: number,
+  nama_lengkap: string,
+  nis: string,
+}
 
 export async function POST(req: Request) {
   try {
     const { items } = await req.json();
 
     if (!Array.isArray(items) || items.length === 0) {
-      return NextResponse.json(
-        { status: 'fail', message: 'Items harus array dan tidak boleh kosong' },
-        { status: 400 }
-      );
+      throw new Error("data dikirim salah")
     }
 
     const size = 600;
@@ -21,7 +25,7 @@ export async function POST(req: Request) {
     for (const item of items) {
       try {
         const { text, iconUrl, iconPercent = 0.2 } = item;
-        const tmpdt = JSON.parse(text);
+        const tmpdt: QRData = JSON.parse(text);
 
         const { data: existingQr, error: fetchError } = await supabase
           .from('tbl_qrcode')
@@ -142,6 +146,7 @@ export async function POST(req: Request) {
           skippedCount: skipped.length,
           skipped,
         },
+        error: null
       },
       {
         status: 200,
@@ -154,6 +159,7 @@ export async function POST(req: Request) {
         code: 500,
         status: 'fail',
         message: err instanceof Error ? err.message : 'Unexpected error',
+        data: null,
         error: err instanceof Error ? err.name : 'Unknown',
       },
       { status: 500, headers: corsHeaders }
@@ -200,10 +206,13 @@ export async function GET(req: Request) {
         code: 200,
         status: 'success',
         message: 'Mengambil data siswa berhasil',
-        data,
-        page,
-        limit,
-        total: count ?? 0, // gunakan count total dari Supabase
+        data: {
+          data,
+          page,
+          limit,
+          total: count ?? 0,
+        },
+        error: null
       },
       { status: 200, headers: corsHeaders }
     );
@@ -213,6 +222,7 @@ export async function GET(req: Request) {
         code: 500,
         status: 'fail',
         message: err instanceof Error ? err.message : 'Unexpected error',
+        data: null,
         error: err instanceof Error ? err.name : 'Unknown',
       },
       { status: 500, headers: corsHeaders }
@@ -317,16 +327,22 @@ export async function PUT(req: Request) {
     }
 
     return NextResponse.json({
+      code: 200,
+      status: 'succes',
       message: 'Semua QR berhasil di-generate/di-update dan file lama dihapus',
-      count: results.length,
-      results,
-    });
+      data: {
+        count: results.length,
+        results,
+      },
+      error: null
+    }, { status: 200, headers: corsHeaders });
   } catch (err) {
     return NextResponse.json(
       {
         code: 500,
         status: 'fail',
         message: err instanceof Error ? err.message : 'Unexpected error',
+        data: null,
         error: err instanceof Error ? err.name : 'Unknown',
       },
       { status: 500, headers: corsHeaders }
@@ -406,6 +422,7 @@ export async function DELETE(req: Request) {
           skippedCount: skipped.length,
           skipped,
         },
+        error: null
       },
       { status: 200, headers: corsHeaders }
     );
@@ -415,6 +432,7 @@ export async function DELETE(req: Request) {
         code: 500,
         status: 'fail',
         message: err instanceof Error ? err.message : 'Unexpected error',
+        data: null,
         error: err instanceof Error ? err.name : 'Unknown',
       },
       { status: 500, headers: corsHeaders }
