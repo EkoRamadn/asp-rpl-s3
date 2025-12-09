@@ -12,14 +12,6 @@ export function isIError(err: unknown): err is IError {
   );
 }
 
-export function generateDataQrcode(nis: string, nama: string, kelas: string) {
-  return JSON.stringify({
-    nis: nis,
-    nama: nama,
-    kelas: kelas,
-  });
-}
-
 // export async function generateQRCode(
 //   nis: string,
 //   nama: string,
@@ -42,21 +34,3 @@ export function generateDataQrcode(nis: string, nama: string, kelas: string) {
 //     throw new Error('Gagal generate QR Code');
 //   }
 // }
-
-export async function generateQrSvg(data: object): Promise<string> {
-  try {
-    const svg = await QRCode.toString(JSON.stringify(data), {
-      type: 'svg',
-      color: {
-        dark: '#000000',
-        light: '#ffffff',
-      },
-      margin: 2,
-    });
-
-    return svg;
-  } catch (error) {
-    console.error('Gagal generate QR Code SVG:', error);
-    throw new Error('Gagal membuat QR Code');
-  }
-}

@@ -4,9 +4,6 @@ import { NextResponse } from 'next/server';
 
 export async function GET(req: Request) {
   try {
-    // const { searchParams } = new URL(req.url);
-
-    // const page = parseInt(searchParams.get("page") || "1");
     const { data: classData, error: classError } = await supabase
       .from('tbl_kelas')
       .select('nama_kelas');
@@ -18,6 +15,7 @@ export async function GET(req: Request) {
         status: 'success',
         message: 'mendapat nama kelas berhasil',
         data: classData.map((clas) => clas.nama_kelas),
+        error: null
       },
       {
         status: 200,
@@ -25,32 +23,15 @@ export async function GET(req: Request) {
       }
     );
   } catch (err) {
-    if (err instanceof Error) {
-      return NextResponse.json(
-        {
-          code: 500,
-          status: 'fail',
-          message: err.message,
-          error: err.name,
-        },
-        {
-          status: 500,
-          headers: corsHeaders,
-        }
-      );
-    }
-
     return NextResponse.json(
       {
         code: 500,
         status: 'fail',
-        message: 'Unexpected error',
-        error: 'Unknown',
+        message: err instanceof Error ? err.message : 'Unexpected error',
+        data: null,
+        error: err instanceof Error ? err.name : 'Unknown',
       },
-      {
-        status: 200,
-        headers: corsHeaders,
-      }
+      { status: 500, headers: corsHeaders }
     );
   }
 }
@@ -103,6 +84,7 @@ export async function PUT(req: Request) {
         status: 'success',
         message: 'update class berhasil',
         data: classData,
+        error: null
       },
       {
         status: 200,
@@ -110,32 +92,15 @@ export async function PUT(req: Request) {
       }
     );
   } catch (err) {
-    if (err instanceof Error) {
-      return NextResponse.json(
-        {
-          code: 500,
-          status: 'fail',
-          message: err.message,
-          error: err.name,
-        },
-        {
-          status: 500,
-          headers: corsHeaders,
-        }
-      );
-    }
-
     return NextResponse.json(
       {
         code: 500,
         status: 'fail',
-        message: 'Unexpected error',
-        error: 'Unknown',
+        message: err instanceof Error ? err.message : 'Unexpected error',
+        data: null,
+        error: err instanceof Error ? err.name : 'Unknown',
       },
-      {
-        status: 500,
-        headers: corsHeaders,
-      }
+      { status: 500, headers: corsHeaders }
     );
   }
 }
@@ -168,6 +133,7 @@ export async function POST(req: Request) {
         status: 'success',
         message: 'menginput data class berhasil',
         data: clasData,
+        error: null
       },
       {
         status: 200,
@@ -175,32 +141,15 @@ export async function POST(req: Request) {
       }
     );
   } catch (err) {
-    if (err instanceof Error) {
-      return NextResponse.json(
-        {
-          code: 500,
-          status: 'fail',
-          message: err.message,
-          error: err.name,
-        },
-        {
-          status: 500,
-          headers: corsHeaders,
-        }
-      );
-    }
-
     return NextResponse.json(
       {
         code: 500,
         status: 'fail',
-        message: 'Unexpected error',
-        error: 'Unknown',
+        message: err instanceof Error ? err.message : 'Unexpected error',
+        data: null,
+        error: err instanceof Error ? err.name : 'Unknown',
       },
-      {
-        status: 500,
-        headers: corsHeaders,
-      }
+      { status: 500, headers: corsHeaders }
     );
   }
 }
@@ -219,39 +168,23 @@ export async function DELETE(req: Request) {
         status: 'success',
         message: 'meghapus data clas berhasil',
         data: clasData,
+        error: null
       },
       {
         status: 200,
         headers: corsHeaders,
       }
     );
-  } catch (error) {
-    if (error instanceof Error) {
-      return NextResponse.json(
-        {
-          code: 500,
-          status: 'fail',
-          message: error.message,
-          error: error.name,
-        },
-        {
-          status: 500,
-          headers: corsHeaders,
-        }
-      );
-    }
-
+  } catch (err) {
     return NextResponse.json(
       {
         code: 500,
         status: 'fail',
-        message: 'Unexpected error',
-        error: 'Unknown',
+        message: err instanceof Error ? err.message : 'Unexpected error',
+        data: null,
+        error: err instanceof Error ? err.name : 'Unknown',
       },
-      {
-        status: 500,
-        headers: corsHeaders,
-      }
+      { status: 500, headers: corsHeaders }
     );
   }
 }

@@ -1,5 +1,6 @@
 import { corsHeaders } from '@/lib/cors';
 import { supabase } from '@/lib/supabase';
+import { error } from 'console';
 
 import { NextResponse } from 'next/server';
 
@@ -15,6 +16,17 @@ export async function GET(req: Request) {
     const nis = searchParams.get('nis') || null;
     const nama_lengkap = searchParams.get('nama_lengkap') || null;
     const kelas = searchParams.get('kelas') || null;
+
+    const tanggal = searchParams.get('tanggal') || null;
+    const tanggal_mulai = searchParams.get('tanggal_mulai') || null;
+    const tanggal_selesai = searchParams.get('tanggal_selesai') || null;
+
+    const bulan = searchParams.get('bulan')
+      ? parseInt(searchParams.get('bulan')!)
+      : null;
+    const tahun = searchParams.get('tahun')
+      ? parseInt(searchParams.get('tahun')!)
+      : null;
 
     const from = (page - 1) * limit;
     const to = from + limit - 1;
@@ -33,25 +45,47 @@ export async function GET(req: Request) {
         .from('tbl_absensi')
         .select(
           `
-                    id,
-                    tanggal,
-                    waktu,
-                    status,
-                    keterangan,
-                    waktu_input,
-                    tbl_siswi!inner (
-                        nama_lengkap,
-                        kelas,
-                        nis
-                    )
-                    `,
+          id,
+          tanggal,
+          waktu,
+          status,
+          keterangan,
+          waktu_input,
+          tbl_siswi!inner (
+              nama_lengkap,
+              kelas,
+              nis
+          )
+          `,
           { count: 'exact' }
         )
         .order('id', { ascending: true });
 
+      if (tanggal) query = query.eq('tanggal', tanggal);
+      if (tanggal_mulai) query = query.gte('tanggal', tanggal_mulai);
+      if (tanggal_selesai) query = query.lte('tanggal', tanggal_selesai);
+
+      if (bulan && tahun) {
+        const bulanStr = bulan.toString().padStart(2, '0');
+        query = query.gte('tanggal', `${tahun}-${bulanStr}-01`);
+
+        const lastDay = new Date(tahun, bulan, 0).getDate();
+        query = query.lte('tanggal', `${tahun}-${bulanStr}-${lastDay}`);
+      } else if (bulan && !tahun) {
+        const now = new Date();
+        const t = now.getFullYear();
+        const bulanStr = bulan.toString().padStart(2, '0');
+        const lastDay = new Date(t, bulan, 0).getDate();
+
+        query = query.gte('tanggal', `${t}-${bulanStr}-01`);
+        query = query.lte('tanggal', `${t}-${bulanStr}-${lastDay}`);
+      } else if (!bulan && tahun) {
+        query = query.gte('tanggal', `${tahun}-01-01`);
+        query = query.lte('tanggal', `${tahun}-12-31`);
+      }
+
       if (prm && prm.trim() !== '') {
         const encoded = prm.replace(/,/g, '');
-
         query = query.or(
           `nis.ilike.%${encoded}%,nama_lengkap.ilike.%${encoded}%,kelas.ilike.%${encoded}%`,
           { foreignTable: 'tbl_siswi' }
@@ -76,14 +110,17 @@ export async function GET(req: Request) {
       {
         code: 200,
         status: 'success',
-        message: 'Data siswi berhasil diambil',
-        data: absensiData,
-        pagination: {
-          page,
-          limit,
-          total_items: count ?? 0,
-          total_pages: Math.ceil((count ?? 0) / limit),
+        message: 'Data absensi berhasil diambil',
+        data: {
+          absensi: absensiData,
+          pagination: {
+            page,
+            limit,
+            total_items: count ?? 0,
+            total_pages: Math.ceil((count ?? 0) / limit),
+          },
         },
+        error: null,
       },
       { status: 200, headers: corsHeaders }
     );
@@ -92,8 +129,9 @@ export async function GET(req: Request) {
       {
         code: 500,
         status: 'fail',
-        message: err instanceof Error ? err.message : 'Unexpected error',
-        error: err instanceof Error ? err.name : 'Unknown',
+        message: err instanceof Error ? err.name : 'Unexpected error',
+        data: null,
+        error: err instanceof Error ? err.message : 'Unknown',
       },
       { status: 500, headers: corsHeaders }
     );
@@ -103,7 +141,7 @@ export async function GET(req: Request) {
 export async function PUT(req: Request) {
   try {
     const { id, dtnew } = await req.json();
-    if (id || dtnew) throw new Error('lengkapai parameter');
+    if (!id || !dtnew) throw new Error('lengkapai parameter');
     const { data: absensiData, error: absensiError } = await supabase
       .from('tbl_absensi')
       .update({
@@ -121,6 +159,7 @@ export async function PUT(req: Request) {
         status: 'success',
         message: 'Data absensi berhasil diupdate',
         data: absensiData,
+        error: null
       },
       { status: 200, headers: corsHeaders }
     );
@@ -130,6 +169,7 @@ export async function PUT(req: Request) {
         code: 500,
         status: 'fail',
         message: err instanceof Error ? err.message : 'Unexpected error',
+        data: null,
         error: err instanceof Error ? err.name : 'Unknown',
       },
       { status: 500, headers: corsHeaders }
@@ -140,7 +180,13 @@ export async function PUT(req: Request) {
 export async function POST(req: Request) {
   try {
     const { dtnew } = await req.json();
-    const { data: nextNo } = await supabase.rpc('get_next_absensi_no');
+
+    const { data: nextNo, error: nextNoError } = await supabase.rpc(
+      'get_next_absensi_no'
+    );
+
+    if (nextNoError) throw new Error(nextNoError.message);
+
     const { data: absensiData, error: absensiError } = await supabase
       .from('tbl_absensi')
       .insert({
@@ -152,15 +198,38 @@ export async function POST(req: Request) {
         keterangan: dtnew.keterangan || '',
         waktu_input: dtnew.waktu_input,
       })
-      .select('tbl_siswi(nama_lengkap,kelas,nis)')
+      .select('tbl_siswi(nama_lengkap, kelas, nis)')
       .single();
-    if (absensiError) throw new Error(absensiError.message);
+
+    if (absensiError) {
+      if (absensiError.code === '23505') {
+        const result = await supabase
+          .from('tbl_siswi')
+          .select('nama_lengkap, kelas, nis')
+          .eq('id', dtnew.id_siswi)
+          .single();
+        if (result.error) throw new Error(result.error.message);
+        return NextResponse.json(
+          {
+            code: 200,
+            status: 'success',
+            message: 'Siswi sudah melakukan absensi',
+            data: result.data,
+          },
+          { status: 200, headers: corsHeaders }
+        );
+      }
+
+      throw new Error(absensiError.message);
+    }
+
     return NextResponse.json(
       {
         code: 200,
         status: 'success',
-        message: 'Data absensi berhasil di input',
+        message: 'Data absensi berhasil diinput',
         data: absensiData,
+        error: null
       },
       { status: 200, headers: corsHeaders }
     );
@@ -170,6 +239,7 @@ export async function POST(req: Request) {
         code: 500,
         status: 'fail',
         message: err instanceof Error ? err.message : 'Unexpected error',
+        data: null,
         error: err instanceof Error ? err.name : 'Unknown',
       },
       { status: 500, headers: corsHeaders }
@@ -192,6 +262,7 @@ export async function DELETE(req: Request) {
         status: 'success',
         message: 'meghapus data absensi berhasil',
         data: absensiData.map((abs) => abs.id),
+        error: null
       },
       {
         status: 200,
@@ -204,6 +275,7 @@ export async function DELETE(req: Request) {
         code: 500,
         status: 'fail',
         message: err instanceof Error ? err.message : 'Unexpected error',
+        data: null,
         error: err instanceof Error ? err.name : 'Unknown',
       },
       { status: 500, headers: corsHeaders }
