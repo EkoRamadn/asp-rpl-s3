@@ -22,6 +22,10 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
+  if (req.method === 'OPTIONS') {
+    return NextResponse.json(null, { status: 200, headers: corsHeaders });
+  }
+
   const authHeader = req.headers.get('authorization');
   const token = authHeader?.split(' ')[1];
 
