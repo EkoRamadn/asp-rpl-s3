@@ -1,13 +1,5 @@
 'use client';
-import React from 'react';
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '../ui/breadcrumb';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList } from '../ui/breadcrumb';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
@@ -27,10 +19,6 @@ const HBread = () => {
             {capitalize(title == 'dashboard' ? 'home' : title)}
           </Link>
         </BreadcrumbItem>
-        {/* <BreadcrumbSeparator className="hidden md:block" /> */}
-        {/* <BreadcrumbItem>
-                    <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                </BreadcrumbItem> */}
       </BreadcrumbList>
     </Breadcrumb>
   );
