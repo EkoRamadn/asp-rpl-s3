@@ -22,6 +22,8 @@ export async function GET(req: Request) {
     const nama_lengkap = searchParams.get('nama_lengkap') || null;
     const kelas = searchParams.get('kelas') || null;
 
+    const sholat = searchParams.get('sholat') || null;
+
     const tanggal = searchParams.get('tanggal') || null;
     const tanggal_mulai = searchParams.get('tanggal_mulai') || null;
     const tanggal_selesai = searchParams.get('tanggal_selesai') || null;
@@ -69,6 +71,8 @@ export async function GET(req: Request) {
       if (tanggal) query = query.eq('tanggal', tanggal);
       if (tanggal_mulai) query = query.gte('tanggal', tanggal_mulai);
       if (tanggal_selesai) query = query.lte('tanggal', tanggal_selesai);
+
+      if (sholat) query = query.eq('waktu', sholat);
 
       if (bulan && tahun) {
         const bulanStr = bulan.toString().padStart(2, '0');
