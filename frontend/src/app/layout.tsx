@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono, Inter } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import './globals.css';
+import { ErrorProvider } from '@/hooks/useError';
+import { ErrorDialog } from '@/components/custom/mobile/ui/ramadani/components/AlertError';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -19,7 +21,12 @@ export default function RootLayout({
 }>) {
   return (
     <html>
-      <body className={`${inter.variable} antialiased dark`}>{children}</body>
+      <body className={`${inter.variable} antialiased dark`}>
+        <ErrorProvider>
+          {children}
+          <ErrorDialog />
+        </ErrorProvider>
+      </body>
     </html>
   );
 }

@@ -4,24 +4,53 @@ import { NextResponse } from 'next/server';
 
 export async function GET(req: Request) {
   try {
-    const { data: classData, error: classError } = await supabase
-      .from('tbl_kelas')
-      .select('nama_kelas');
-    if (classError) throw new Error(classError.message);
+    const { searchParams } = new URL(req.url);
 
-    return NextResponse.json(
-      {
-        code: 200,
-        status: 'success',
-        message: 'mendapat nama kelas berhasil',
-        data: classData.map((clas) => clas.nama_kelas),
-        error: null
-      },
-      {
-        status: 200,
-        headers: corsHeaders,
-      }
-    );
+    const nKelas = searchParams.get('kelas')
+
+    if (nKelas) {
+      const { data: classData, error: classError } = await supabase
+        .from('tbl_kelas')
+        .select(
+          'id,nama_kelas,wali_kelas',
+          { count: 'exact' }
+        ).eq('nama_kelas', nKelas).maybeSingle();
+
+      if (classError) throw new Error(classError.message);
+
+      return NextResponse.json(
+        {
+          code: 200,
+          status: 'success',
+          message: classData ? 'mendapat nama kelas berhasil' : 'kelas tidak dapat ditemukan',
+          data: classData || {},
+          error: null
+        },
+        {
+          status: 200,
+          headers: corsHeaders,
+        }
+      );
+    } else {
+      const { data: classData, error: classError } = await supabase
+        .from('tbl_kelas')
+        .select('*');
+      if (classError) throw new Error(classError.message);
+
+      return NextResponse.json(
+        {
+          code: 200,
+          status: 'success',
+          message: 'mendapat nama kelas berhasil',
+          data: classData,
+          error: null
+        },
+        {
+          status: 200,
+          headers: corsHeaders,
+        }
+      );
+    }
   } catch (err) {
     return NextResponse.json(
       {
