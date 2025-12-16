@@ -10,12 +10,21 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/custom/ui/buttons';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { toast } from "sonner"
 
 const formSchema = z.object({
     nama_lengkap: z.string().min(1, 'Full Name is required'),
     username: z.string().min(1, 'Username is required'),
-    password: z.string().min(6, 'Password must be at least 6 characters'),
+    password: z.string().optional(),
     role: z.string().min(1, 'Role is required'),
+}).refine((data) => {
+    if (data.password && data.password.length > 0 && data.password.length < 6) {
+        return false;
+    }
+    return true;
+}, {
+    message: "Password must be at least 6 characters if provided",
+    path: ["password"],
 });
 
 interface AddUserModalProps {
@@ -52,6 +61,7 @@ export default function AddUserModal({ isOpen, onClose, initialData }: AddUserMo
 
     const handleFinalSave = () => {
         console.log("DATA USER DISIMPAN:", pendingValues);
+        toast.success("User has been saved successfully!");
         setShowSaveConfirm(false);
         onClose();
     };

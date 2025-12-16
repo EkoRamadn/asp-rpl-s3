@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Iconify from "@/components/custom/mobile/ui/Iconify";
 import { Button } from "@/components/custom/ui/buttons";
-import { Input } from "@/components/custom/ui/Input";
+
 import { Tabs, TabsList, TabsTrigger } from "@/components/custom/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -16,6 +16,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { InputForm } from "@/components/custom/ui/input-form";
+
+
 
 const classesData = [
   { id: 1, name: "X MIPA 1", wali: "Bapak Mulyono S.Pd.", batch: "X" },
@@ -94,7 +97,8 @@ function ClassPage() {
 
           {/* Searchbar */}
           <div className="flex w-full h-fit max-w-[400px] relative">
-            <Input
+
+            <InputForm
               type="text"
               placeholder="Search Class or Guardian..."
               className="pr-[40px] capitalize"

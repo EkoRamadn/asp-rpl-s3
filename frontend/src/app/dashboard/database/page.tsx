@@ -24,13 +24,15 @@ import {
   TableRow,
 } from "@/components/custom/ui/table"
 import { studentsData, classesData, usersData } from "@/lib/dummyData";
-import { Input } from "@/components/custom/ui/Input";
+
 import Iconify from "@/components/custom/mobile/ui/Iconify";
 import { useState } from "react";
 import AddStudentModal from "@/components/custom/AddStudentModal";
 import AddClassModal from "@/components/custom/AddClassModal";
 import AddUserModal from "@/components/custom/AddUserModal";
+import { InputForm } from "@/components/custom/ui/input-form";
 
+const ITEMS_PER_PAGE = 5;
 
 function Database() {
   const [keyword, setKeyword] = useState("");
@@ -40,14 +42,20 @@ function Database() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [deleteType, setDeleteType] = useState<"student" | "class" | "user" | null>(null);
-
   const [isAddStudentOpen, setIsAddStudentOpen] = useState(false);
   const [isAddClassOpen, setIsAddClassOpen] = useState(false);
   const [isAddUserOpen, setIsAddUserOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleTabChange = (value: string) => {
     setActiveTab(value);
     setKeyword("");
+    setCurrentPage(1);
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.target.value);
+    setCurrentPage(1);
   };
 
   const filteredStudents = studentsData.filter((student) => {
@@ -69,6 +77,17 @@ function Database() {
       user.role.toLowerCase().includes(keyword.toLowerCase())
     );
   });
+
+  const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
+  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
+
+  const currentStudents = filteredStudents.slice(indexOfFirstItem, indexOfLastItem);
+  const currentClasses = filteredClasses.slice(indexOfFirstItem, indexOfLastItem);
+  const currentUsers = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPagesStudents = Math.ceil(filteredStudents.length / ITEMS_PER_PAGE);
+  const totalPagesClasses = Math.ceil(filteredClasses.length / ITEMS_PER_PAGE);
+  const totalPagesUsers = Math.ceil(filteredUsers.length / ITEMS_PER_PAGE);
 
   const handleAddClick = () => {
     setEditingData(null);
@@ -150,12 +169,12 @@ function Database() {
         {/* Searchbar Table */}
         <div className="flex w-full h-fit">
           <div className="relative w-full max-w-[400px]">
-            <Input
+            <InputForm
               type="text"
               placeholder={activeTab === "students" ? "Search Student (Name/NIS)..." : activeTab === "classes" ? "Search Class (Name/Wali)..." : "Search User (Name/Role)..."}
               className="pr-[40px]"
               value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
+              onChange={handleSearch}
             />
             {keyword.length > 0 ? (
               <button onClick={() => setKeyword("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/70 hover:text-white flex items-center justify-center">
@@ -183,186 +202,251 @@ function Database() {
 
       {/* Tab Students */}
       <TabsContent value="students">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>ID</TableHead>
-              <TableHead>NIS</TableHead>
-              <TableHead>Full Name</TableHead>
-              <TableHead>Class</TableHead>
-              <TableHead>Gender</TableHead>
-              <TableHead>QR Code</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Notes</TableHead>
-              <TableHead>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredStudents.length > 0 ? (
-              filteredStudents.map((student) => (
-                <TableRow key={student.id}>
-                  <TableCell>{student.id}</TableCell>
-                  <TableCell>{student.nis}</TableCell>
-                  <TableCell>{student.name}</TableCell>
-                  <TableCell>{student.class}</TableCell>
-                  <TableCell>{student.gender}</TableCell>
-                  <TableCell>{student.qrCode}</TableCell>
-                  <TableCell>{student.status}</TableCell>
-                  <TableCell>{student.notes}</TableCell>
-                  <TableCell>
-                    <div className="flex flex-row w-full h-fit gap-[10px] justify-center">
-                      <Button variant="outline" size="icon" onClick={() => handleEditStudentClick(student)}>
-                        <Iconify
-                          icon="material-symbols:edit-outline"
-                          size={20}
-                        />
-                      </Button>
-                      <Button variant="outline" size="icon" onClick={() => handleDeleteClick(student.id)}>
-                        <Iconify icon="material-symbols:delete-outline" size={20} />
-                      </Button>
-                    </div>
+        <div className="h-[400px] flex flex-col justify-between">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>ID</TableHead>
+                <TableHead>NIS</TableHead>
+                <TableHead>Full Name</TableHead>
+                <TableHead>Class</TableHead>
+                <TableHead>Gender</TableHead>
+                <TableHead>QR Code</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Notes</TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {currentStudents.length > 0 ? (
+                currentStudents.map((student) => (
+                  <TableRow key={student.id}>
+                    <TableCell>{student.id}</TableCell>
+                    <TableCell>{student.nis}</TableCell>
+                    <TableCell>{student.name}</TableCell>
+                    <TableCell>{student.class}</TableCell>
+                    <TableCell>{student.gender}</TableCell>
+                    <TableCell>{student.qrCode}</TableCell>
+                    <TableCell>{student.status}</TableCell>
+                    <TableCell>{student.notes}</TableCell>
+                    <TableCell>
+                      <div className="flex flex-row w-full h-fit gap-[10px] justify-center">
+                        <Button variant="outline" size="icon" onClick={() => handleEditStudentClick(student)}>
+                          <Iconify
+                            icon="material-symbols:edit-outline"
+                            size={20}
+                          />
+                        </Button>
+                        <Button variant="outline" size="icon" onClick={() => handleDeleteClick(student.id)}>
+                          <Iconify icon="material-symbols:delete-outline" size={20} />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={9} className="h-24 text-center">
+                    No results found.
                   </TableCell>
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={9} className="h-24 text-center">
-                  No results found.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TabsContent>
+              )}
+            </TableBody>
+          </Table>
+        </div>
 
+        <div className="flex items-center justify-end space-x-2 py-4 select-none">
+          <div className="text-sm text-white/50 mr-4">Page {currentPage} of {totalPagesStudents}</div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+            disabled={currentPage >= totalPagesStudents}
+          >
+            Next
+          </Button>
+        </div>
+      </TabsContent>
 
       {/* Tab Classes */}
       <TabsContent value="classes">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>ID</TableHead>
-              <TableHead>Nama Kelas</TableHead>
-              <TableHead>Wali Kelas</TableHead>
-              <TableHead>Total Siswi</TableHead>
-              <TableHead>Total Berhalangan</TableHead>
-              <TableHead>Total Suci</TableHead>
-              <TableHead>Persentasi Kehadiran</TableHead>
-              <TableHead>Angkatan</TableHead>
-              <TableHead>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredClasses.length > 0 ? (
-              filteredClasses.map((kelas) => (
-                <TableRow key={kelas.id}>
-                  <TableCell>{kelas.id}</TableCell>
-                  <TableCell>{kelas.name}</TableCell>
-                  <TableCell>{kelas.wali}</TableCell>
-                  <TableCell>{kelas.total_siswi}</TableCell>
-                  <TableCell>{kelas.total_berhalangan}</TableCell>
-                  <TableCell>{kelas.total_suci}</TableCell>
-                  <TableCell>{kelas.attendance}</TableCell>
-                  <TableCell>{kelas.angkatan}</TableCell>
-                  <TableCell>
+        <div className="h-[400px] flex flex-col justify-between">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>ID</TableHead>
+                <TableHead>Nama Kelas</TableHead>
+                <TableHead>Wali Kelas</TableHead>
+                <TableHead>Total Siswi</TableHead>
+                <TableHead>Total Berhalangan</TableHead>
+                <TableHead>Total Suci</TableHead>
+                <TableHead>Persentasi Kehadiran</TableHead>
+                <TableHead>Angkatan</TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {currentClasses.length > 0 ? (
+                currentClasses.map((kelas) => (
+                  <TableRow key={kelas.id}>
+                    <TableCell>{kelas.id}</TableCell>
+                    <TableCell>{kelas.name}</TableCell>
+                    <TableCell>{kelas.wali}</TableCell>
+                    <TableCell>{kelas.total_siswi}</TableCell>
+                    <TableCell>{kelas.total_berhalangan}</TableCell>
+                    <TableCell>{kelas.total_suci}</TableCell>
+                    <TableCell>{kelas.attendance}</TableCell>
+                    <TableCell>{kelas.angkatan}</TableCell>
+                    <TableCell>
 
-                    <div className="flex flex-row w-full h-fit gap-[10px] justify-center">
-                      <Button
-                        variant="outline" size="icon" onClick={() => handleEditClassClick(kelas)}
-                      >
-                        <Iconify
-                          icon="material-symbols:edit-outline"
-                          size={20}
-                        />
-                      </Button>
-                      <Button
-                        variant="outline" size="icon"
-                      >
-                        <Iconify
-                          icon="ic:baseline-qr-code"
-                          size={20}
-                        />
-                      </Button>
-                      <Button
-                        variant="outline" size="icon" onClick={() => handleDeleteClassClick(kelas.id)}
-                      >
-                        <Iconify
-                          icon="material-symbols:delete-outline"
-                          size={20}
-                        />
-                      </Button>
-                    </div>
+                      <div className="flex flex-row w-full h-fit gap-[10px] justify-center">
+                        <Button
+                          variant="outline" size="icon" onClick={() => handleEditClassClick(kelas)}
+                        >
+                          <Iconify
+                            icon="material-symbols:edit-outline"
+                            size={20}
+                          />
+                        </Button>
+                        <Button
+                          variant="outline" size="icon"
+                        >
+                          <Iconify
+                            icon="ic:baseline-qr-code"
+                            size={20}
+                          />
+                        </Button>
+                        <Button
+                          variant="outline" size="icon" onClick={() => handleDeleteClassClick(kelas.id)}
+                        >
+                          <Iconify
+                            icon="material-symbols:delete-outline"
+                            size={20}
+                          />
+                        </Button>
+                      </div>
 
+                    </TableCell>
+                  </TableRow>
+                ))) : (
+                <TableRow>
+                  <TableCell colSpan={9} className="h-24 text-center">
+                    No classes found.
                   </TableCell>
                 </TableRow>
-              ))) : (
-              <TableRow>
-                <TableCell colSpan={9} className="h-24 text-center">
-                  No classes found.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+
+        <div className="flex items-center justify-end space-x-2 py-4 select-none">
+          <div className="text-sm text-white/50 mr-4">Page {currentPage} of {totalPagesClasses}</div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+            disabled={currentPage >= totalPagesClasses}
+          >
+            Next
+          </Button>
+        </div>
       </TabsContent>
 
 
       {/* Tab Users */}
       <TabsContent value="users">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>ID</TableHead>
-              <TableHead>Nama Lengkap</TableHead>
-              <TableHead>Username</TableHead>
-              <TableHead>Password</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Login Terakhir</TableHead>
-              <TableHead>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredUsers.length > 0 ? (
-              filteredUsers.map((user) => (
-                <TableRow key={user.id}>
-                  <TableCell>{user.id}</TableCell>
-                  <TableCell>{user.nama_lengkap}</TableCell>
-                  <TableCell>{user.username}</TableCell>
-                  <TableCell>{user.password}</TableCell>
-                  <TableCell>{user.role}</TableCell>
-                  <TableCell>{user.last_login}</TableCell>
-                  <TableCell>
+        <div className="h-[400px] flex flex-col justify-between">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>ID</TableHead>
+                <TableHead>Nama Lengkap</TableHead>
+                <TableHead>Username</TableHead>
+                <TableHead>Password</TableHead>
+                <TableHead>Role</TableHead>
+                <TableHead>Login Terakhir</TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {currentUsers.length > 0 ? (
+                currentUsers.map((user) => (
+                  <TableRow key={user.id}>
+                    <TableCell>{user.id}</TableCell>
+                    <TableCell>{user.nama_lengkap}</TableCell>
+                    <TableCell>{user.username}</TableCell>
+                    <TableCell>{user.password}</TableCell>
+                    <TableCell>{user.role}</TableCell>
+                    <TableCell>{user.last_login}</TableCell>
+                    <TableCell>
 
-                    <div className="flex flex-row w-full h-fit gap-[10px] justify-center">
-                      <Button
-                        variant="outline" size="icon" onClick={() => handleEditUserClick(user)}
-                      >
-                        <Iconify
-                          icon="material-symbols:edit-outline"
-                          size={20}
-                        />
-                      </Button>
-                      <Button
-                        variant="outline" size="icon" onClick={() => handleDeleteUserClick(user.id)}
-                      >
-                        <Iconify
-                          icon="material-symbols:delete-outline"
-                          size={20}
-                        />
-                      </Button>
-                    </div>
+                      <div className="flex flex-row w-full h-fit gap-[10px] justify-center">
+                        <Button
+                          variant="outline" size="icon" onClick={() => handleEditUserClick(user)}
+                        >
+                          <Iconify
+                            icon="material-symbols:edit-outline"
+                            size={20}
+                          />
+                        </Button>
+                        <Button
+                          variant="outline" size="icon" onClick={() => handleDeleteUserClick(user.id)}
+                        >
+                          <Iconify
+                            icon="material-symbols:delete-outline"
+                            size={20}
+                          />
+                        </Button>
+                      </div>
 
+                    </TableCell>
+                  </TableRow>
+                ))) : (
+                <TableRow>
+                  <TableCell colSpan={7} className="h-24 text-center">
+                    No users found.
                   </TableCell>
                 </TableRow>
-              ))) : (
-              <TableRow>
-                <TableCell colSpan={7} className="h-24 text-center">
-                  No users found.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+
+        <div className="flex items-center justify-end space-x-2 py-4 select-none">
+          <div className="text-sm text-white/50 mr-4">Page {currentPage} of {totalPagesUsers}</div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+            disabled={currentPage >= totalPagesUsers}
+          >
+            Next
+          </Button>
+        </div>
       </TabsContent>
 
       {/* Pop-up add sama edit */}

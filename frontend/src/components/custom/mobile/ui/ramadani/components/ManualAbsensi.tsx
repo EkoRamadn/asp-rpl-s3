@@ -6,7 +6,8 @@ import { getDataSiswi } from '../logic/getDataSiswi';
 import { Icon } from '@iconify/react';
 import { AbsensiForm } from './AbsensiForm';
 import { Loading } from './Loading';
-import { Input } from '@/components/custom/ui/Input';
+import { InputForm } from '@/components/custom/ui/input-form';
+
 
 interface ManualInputProps {
   setPick: (siswi: AbsesiStatus) => void;
@@ -63,7 +64,8 @@ export const ManualAbsensi = ({ setPick, setNAbsen, sholatTime }: ManualInputPro
   return (
     <div className="p-2 flex-1 flex flex-col h-full">
       <form className="mb-4 relative w-full h-max">
-        <Input
+
+        <InputForm
           placeholder="Search Name/NISN: "
           className="flex w-full h-fit items-center justify-between p-[10px] text-white text-[14px] placeholder:text-white/50 rounded-[12px] outline-none border border-[#3F3F3F]"
           value={search}

@@ -10,6 +10,7 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/custom/ui/buttons';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { toast } from 'sonner';
 
 const formSchema = z.object({
     name: z.string().min(1, 'Class Name is required'),
@@ -49,6 +50,7 @@ export default function AddClassModal({ isOpen, onClose, initialData }: AddClass
 
     const handleFinalSave = () => {
         console.log("DATA KELAS DISIMPAN:", pendingValues);
+        toast.success("Class has been saved successfully!");
         setShowSaveConfirm(false);
         onClose();
     };

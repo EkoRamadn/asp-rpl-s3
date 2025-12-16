@@ -33,6 +33,7 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '../ui/textarea';
+import { toast } from 'sonner';
 
 const formSchema = z.object({
     nama_lengkap: z.string().min(1, 'Full name is required'),
@@ -92,6 +93,7 @@ export default function AddStudentModal({ isOpen, onClose, initialData }: AddStu
 
     const handleFinalSave = () => {
         console.log("DATA DISIMPAN:", pendingValues);
+        toast.success("Student has been saved successfully!");
         setShowSaveConfirm(false);
         onClose();
     };
