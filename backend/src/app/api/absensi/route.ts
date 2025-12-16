@@ -1,5 +1,6 @@
 import { corsHeaders } from '@/lib/cors';
 import { supabase } from '@/lib/supabase';
+import { addAbsensiBulan } from '@/lib/utils';
 import { error } from 'console';
 
 import { NextResponse } from 'next/server';
@@ -232,11 +233,15 @@ export async function POST(req: Request) {
       throw new Error(absensiError.message);
     }
 
+
+    const { message, data, error } = await addAbsensiBulan(dtnew.id_siswi, dtnew.tanggal, dtnew.waktu);
+
+
     return NextResponse.json(
       {
         code: 200,
         status: 'success',
-        message: 'Data absensi berhasil diinput',
+        message: 'Data absensi berhasil diinput/' + message,
         data: absensiData,
         error: null
       },
