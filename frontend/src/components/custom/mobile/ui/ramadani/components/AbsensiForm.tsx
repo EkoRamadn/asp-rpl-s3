@@ -25,7 +25,7 @@ import {
 } from '@/components/ui/form';
 
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/custom/ui/buttons';
 import {
   Select,
   SelectContent,
@@ -37,6 +37,7 @@ import { AbsesiStatus, NewAbsensi, Sholat, Siswi } from '../types/global';
 import { addDataAbsensi } from '../logic/addDataAbsensi';
 import { useError } from '@/hooks/useError';
 import { checkTimeShoolat } from '@/lib/utils';
+import { Icon } from '@iconify/react';
 
 const formSchema = z.object({
   nama_lengkap: z.string().min(2, 'Minimal 2 karakter'),
@@ -116,10 +117,10 @@ export function AbsensiForm({
 
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
-      <AlertDialogContent className="dark:bg-[#151419]">
-        <AlertDialogHeader>
-          <AlertDialogTitle>Data Siswi</AlertDialogTitle>
-          <AlertDialogDescription>Masukkan informasi Siswi.</AlertDialogDescription>
+      <AlertDialogContent className="w-[100%] rounded-[12px] bg-[#151419] border-[#27272A] text-white">
+        <AlertDialogHeader className="text-left space-y-2">
+          <AlertDialogTitle className="flex items-center text-[18px] font-bold gap-[10px] mb-[10px]">
+            <Icon icon="mdi:form-outline" width={24} height={24} />Manual Entry</AlertDialogTitle>
         </AlertDialogHeader>
 
         <Form {...form}>
@@ -129,24 +130,32 @@ export function AbsensiForm({
               name="nama_lengkap"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nama Lengkap</FormLabel>
+                  <FormLabel className="text-[14px] text-white font-medium">Full Name</FormLabel>
                   <FormControl>
-                    <Input className="py-5 rounded-[7px]" disabled {...field} />
+                    <Input
+                      className="bg-[#27272A] border-none text-white/80 h-[48px] rounded-[7px] disabled:opacity-100 disabled:cursor-not-allowed"
+                      disabled
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <div className="flex gap-[5px] ">
+            <div className="grid grid-cols-2 gap-4">
               <FormField
                 control={form.control}
                 name="nis"
                 render={({ field }) => (
-                  <FormItem className="flex-2">
-                    <FormLabel>NIS</FormLabel>
+                  <FormItem className="space-y-2">
+                    <FormLabel className="text-[14px] text-white font-medium">Student ID (NIS)</FormLabel>
                     <FormControl>
-                      <Input className="py-5 rounded-[7px]" disabled {...field} />
+                      <Input
+                        className="bg-[#27272A] border-none text-white/80 h-[48px] rounded-[7px] disabled:opacity-100 disabled:cursor-not-allowed"
+                        disabled
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -157,10 +166,14 @@ export function AbsensiForm({
                 control={form.control}
                 name="kelas"
                 render={({ field }) => (
-                  <FormItem className="flex-1">
-                    <FormLabel>Kelas</FormLabel>
+                  <FormItem className="space-y-2">
+                    <FormLabel className="text-[14px] text-white font-medium">Class</FormLabel>
                     <FormControl>
-                      <Input className="py-5 rounded-[7px]" disabled {...field} />
+                      <Input
+                        className="bg-[#27272A] border-none text-white/80 h-[48px] rounded-[7px] disabled:opacity-100 disabled:cursor-not-allowed"
+                        disabled
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -173,14 +186,17 @@ export function AbsensiForm({
               name="catatan"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Catatan</FormLabel>
+                  <FormLabel className="text-[14px] text-white font-medium">Reason</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <SelectTrigger className="w-full py-5 rounded-[7px]">
-                      <SelectValue placeholder="Beri Catatan" />
-                    </SelectTrigger>
+                    <FormControl>
+                      <SelectTrigger className="bg-[#27272A] border-none !text-white w-full !h-[48px] rounded-[7px]">
+                        <SelectValue placeholder="Select reason" />
+                      </SelectTrigger>
+                    </FormControl>
                     <SelectContent>
-                      <SelectItem value="Ketinggalan">Ketinggalan</SelectItem>
-                      <SelectItem value="Hilang">Hilang</SelectItem>
+                      <SelectItem value="Ketinggalan">Forgot ID Card</SelectItem>
+                      <SelectItem value="Hilang">Lost ID Card</SelectItem>
+                      <SelectItem value="Ijin">Sick/Permission</SelectItem>
                       <SelectItem value="Pembuatan">Pembuatan</SelectItem>
                     </SelectContent>
                   </Select>
@@ -189,15 +205,23 @@ export function AbsensiForm({
               )}
             />
 
-            <AlertDialogFooter className="mt-10">
-              <AlertDialogCancel type="button" className="py-6 rounded-[7px]">
+            <div className="flex flex-col gap-[10px]">
+              <AlertDialogCancel
+                type="button"
+                className="h-[48px]"
+              >
                 Cancel
               </AlertDialogCancel>
 
-              <Button type="submit" className="py-6 rounded-[7px]">
+              <Button
+                type="submit"
+                variant="default"
+                size="mobile"
+              >
                 Submit
               </Button>
-            </AlertDialogFooter>
+            </div>
+
           </form>
         </Form>
       </AlertDialogContent>

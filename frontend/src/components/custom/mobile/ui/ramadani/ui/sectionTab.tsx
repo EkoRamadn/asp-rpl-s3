@@ -1,12 +1,12 @@
 'use client';
+
 import { useState } from 'react';
-
 import ScannerQR from '../components/QRAbsensi';
-
 import { NotifAbsen } from '../components/NontifAbsen';
 import { ManualAbsensi } from '../components/ManualAbsensi';
-import { BtnMobile } from '../components/BtnMobile';
 import { Sholat } from '../types/global';
+import { Button } from '@/components/custom/ui/buttons';
+import { Icon } from '@iconify/react';
 
 interface SectionTabProps {
   className?: string;
@@ -31,19 +31,25 @@ export const SectionTab: React.FC<SectionTabProps> = ({ className = '', sholatTi
 
   return (
     <div className={`section-tab flex w-full h-[60vh]  flex-col flex-1 ${className}`}>
-      <div className="head flex gap-[5px] w-full mb-2.5">
-        <BtnMobile
-          value="Scan QR Code"
-          Ico="bx:scan"
-          on={() => setState('left')}
-          isActive={state == 'left'}
-        />
-        <BtnMobile
-          value="Manual Entry"
-          Ico="material-symbols:person-search"
-          on={() => setState('right')}
-          isActive={state == 'right'}
-        />
+      <div className="head flex flex-row w-full h-fit items-center justify-center gap-[10px] mb-2.5">
+        {/* Button Scan QR Code */}
+        <Button
+          variant={state === 'left' ? "default" : "secondary"}
+          size="mobile"
+          className="flex-1"
+          onClick={() => setState('left')}
+        >
+          <Icon icon="bx:scan" width={20} height={20} />Scan QR Code</Button>
+        {/* Button Absensi Manual */}
+        <Button
+          variant={state === 'right' ? "default" : "secondary"}
+          size="mobile"
+          className="flex-1"
+          onClick={() => setState('right')}
+        >
+          <Icon icon="material-symbols:person-search" width={20} height={20} />
+          Manual Entry
+        </Button>
       </div>
       <div className="content-Tab body w-full flex-1 dark:bg-[rgb(21,20,25)] rounded-[10px] overflow-hidden">
         {state === 'left' ? (

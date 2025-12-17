@@ -6,7 +6,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/custom/ui/buttons';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Icon } from '@iconify/react';
@@ -249,21 +249,22 @@ function SidebarTrigger({ className, onClick, ...props }: React.ComponentProps<t
   const { toggleSidebar } = useSidebar();
 
   return (
-    <Button
+    <button
       data-sidebar="trigger"
       data-slot="sidebar-trigger"
-      variant="ghost"
-      size="icon"
-      className={cn('size-8', className)}
+      className={cn(
+        "flex items-center justify-center h-9 w-9 rounded-md text-white/70 hover:text-white hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/20",
+        className
+      )}
       onClick={(event) => {
         onClick?.(event);
         toggleSidebar();
       }}
       {...props}
     >
-      <Icon icon="material-symbols:menu" className="size-6" />
+      <Icon icon="material-symbols:menu" className="h-6 w-6" />
       <span className="sr-only">Toggle Sidebar</span>
-    </Button>
+    </button>
   );
 }
 
@@ -548,7 +549,7 @@ function SidebarMenuAction({
         'peer-data-[size=lg]/menu-button:top-2.5',
         'group-data-[collapsible=icon]:hidden',
         showOnHover &&
-          'peer-data-[active=true]/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 md:opacity-0',
+        'peer-data-[active=true]/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 md:opacity-0',
         className
       )}
       {...props}
