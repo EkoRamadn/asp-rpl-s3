@@ -25,7 +25,7 @@ import {
 } from '@/components/ui/form';
 
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/custom/ui/buttons';
+import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
@@ -216,7 +216,7 @@ export function AbsensiForm({
               <Button
                 type="submit"
                 variant="default"
-                size="mobile"
+                className="h-[48px]"
               >
                 Submit
               </Button>

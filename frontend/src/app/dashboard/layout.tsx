@@ -35,7 +35,7 @@ export default function DashboardLayout({ children }: Readonly<{ children: React
               <HeaderActions />
             </header>
             <hr className="w-full border border-[#27272A]" />
-            <div className=" gap-4 p-4 pt-0">{children} <Toaster /></div>
+            <div className=" gap-4 p-0 pt-0">{children} <Toaster /></div>
           </SidebarInset>
         </SidebarProvider>
       </div>
