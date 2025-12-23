@@ -1,5 +1,7 @@
 import { IError } from '@/types/response.type';
 import QRCode from 'qrcode';
+import { supabase } from './supabase';
+import { Asul } from 'next/font/google';
 
 export function isIError(err: unknown): err is IError {
   return (
@@ -34,3 +36,73 @@ export function isIError(err: unknown): err is IError {
 //     throw new Error('Gagal generate QR Code');
 //   }
 // }
+
+
+export const addAbsensiBulan = async (
+  id: number,
+  tgl: string,
+  waktu: string,
+  ctn?: string,
+) => {
+  try {
+    // cek data existing
+    const { data: ab, error: eab } = await supabase
+      .from('tbl_absensibulan')
+      .select('id, absenwaktu')
+      .eq('id_siswi', id)
+      .eq('tanggal', tgl)
+      .maybeSingle();
+
+    if (eab && eab.code !== 'PGRST116') {
+      throw new Error(eab.message);
+    }
+
+    const isAlreadyExists = !!ab;
+
+    let result;
+
+    if (!isAlreadyExists) {
+      const { data, error } = await supabase
+        .from('tbl_absensibulan')
+        .insert({
+          id_siswi: id,
+          status: 'haid',
+          absenwaktu: 1,
+          tanggal: tgl,
+          catatan: ctn,
+        })
+        .select()
+        .single();
+
+      if (error) throw new Error(error.message);
+      result = data;
+    } else {
+      const { data, error } = await supabase
+        .from('tbl_absensibulan')
+        .update({
+          absenwaktu: Number(ab.absenwaktu) + 1,
+          catatan: ctn,
+        })
+        .eq('id', ab.id)
+        .select()
+        .single();
+
+      if (error) throw new Error(error.message);
+      result = data;
+    }
+
+    return {
+      message: isAlreadyExists
+        ? 'Absensi berhasil diperbarui '
+        : 'Absensi berhasil ditambahkan ',
+      data: result,
+      error: null,
+    };
+  } catch (err) {
+    return {
+      message: 'Terjadi kesalahan ',
+      data: null,
+      error: err instanceof Error ? err.message : 'Unknown error',
+    };
+  }
+};
