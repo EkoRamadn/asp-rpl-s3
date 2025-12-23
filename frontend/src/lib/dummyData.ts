@@ -482,3 +482,81 @@ export const usersData = [
     last_login: "Tuesday, November 11, 2025 at 06:15 AM WIB"
   }
 ];
+
+export interface Report {
+    id: number;
+    student: string;
+    nis: string;
+    class: string;
+    type: string;
+    time: string;
+    status: 'pending' | 'completed';
+    details: string;
+    unread: boolean;
+}
+
+export const notificationsData: Report[] = [
+    { 
+        id: 101, 
+        student: "Auliya Nur Azizah", 
+        nis: "221045", 
+        class: "X MIPA 2", 
+        type: "Laporan Missing Data", 
+        time: "Tuesday, 25 November 2025, 17.25", 
+        status: 'pending', 
+        details: "Siswi (Haid hari ke-2) belum melakukan tap kartu harian hingga batas waktu pukul 17.00 WIB.",
+        unread: true 
+    },
+    { 
+        id: 102, 
+        student: "Siti Aminah", 
+        nis: "221088", 
+        class: "XI IPS 1", 
+        type: "Laporan Ketidaksesuaian", 
+        time: "Tuesday, 25 November 2025, 17.25", 
+        status: 'pending', 
+        details: "Anomali terdeteksi: Siklus haid tercatat selesai terlalu cepat (hanya 2 hari) pada data kartu terbaru.",
+        unread: true 
+    },
+    { 
+        id: 103, 
+        student: "Rina Permata", 
+        nis: "221099", 
+        class: "XII MIPA 1", 
+        type: "Laporan Anomali Input", 
+        time: "Tuesday, 25 November 2025, 17.25", 
+        status: 'pending', 
+        details: "Siswi melakukan tap kartu ganda dalam rentang waktu kurang dari 5 menit di perangkat berbeda.",
+        unread: false 
+    },
+    { 
+        id: 104, 
+        student: "Dewi Sartika", 
+        nis: "221102", 
+        class: "XI MIPA 3", 
+        type: "Laporan Validasi Manual", 
+        time: "Tuesday, 25 November 2025, 17.25", 
+        status: 'pending', 
+        details: "Sistem memerlukan konfirmasi fisik terkait kondisi kartu absensi siswi yang tidak terbaca stabil.",
+        unread: false 
+    },
+
+    ...Array.from({ length: 27 }, (_, i) => ({
+        id: 105 + i,
+        student: `Siswi Nama ${i + 5}`,
+        nis: `2211${10 + i}`,
+        class: i % 2 === 0 ? "X MIPA 1" : "XI IPS 2",
+        type: i % 4 === 0 ? "Laporan Missing Data" : i % 4 === 1 ? "Laporan Ketidaksesuaian" : i % 4 === 2 ? "Laporan Anomali Input" : "Laporan Validasi Manual",
+        time: "Tuesday, 25 November 2025, 17.25",
+        status: 'completed' as const,
+        details: "Pemantauan siklus haid harian berjalan normal.",
+        unread: false
+    }))
+];
+
+export const reportActions: Record<string, string[]> = {
+    "Laporan Missing Data": ["Hubungi Siswi via WhatsApp", "Konfirmasi Wali Kelas", "Input Data Manual", "Selesaikan Laporan"],
+    "Laporan Ketidaksesuaian": ["Reset Data Siklus", "Validasi Hari Haid", "Koreksi Input Kartu", "Selesaikan Laporan"],
+    "Laporan Anomali Input": ["Hapus Data Ganda", "Verifikasi Perangkat Tap", "Selesaikan Laporan"],
+    "Laporan Validasi Manual": ["Cek Fisik Kartu Siswi", "Ganti Kartu Baru", "Selesaikan Laporan"]
+};

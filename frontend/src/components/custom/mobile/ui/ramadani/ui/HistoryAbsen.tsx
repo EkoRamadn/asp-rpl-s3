@@ -53,7 +53,7 @@ const HistoryAbsen = ({ isOpen, setIsOpen, sholat }: HistoryAbenProps) => {
   }, [activeTab, isOpen, sholat, showError]);
 
   const ListContent = () => (
-    <div className="flex flex-col h-full overflow-hidden">
+    <div className="flex flex-col h-full overflow-hidden shadcdn_default">
 
       {/* Info */}
       <div className="flex items-center justify-center gap-[5px] p-[10px]">

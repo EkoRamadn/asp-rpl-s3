@@ -20,6 +20,16 @@ import {
 } from '@/components/ui/sidebar';
 import { Icon } from '@iconify/react';
 
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogTitle,
+  DialogDescription
+} from "@/components/ui/dialog"
+
+import { Profile } from "@/components/custom/Profile"
+
 export function NavUser({
   user,
 }: {
@@ -34,35 +44,14 @@ export function NavUser({
   return (
     <SidebarMenu>
       <SidebarMenuItem>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <SidebarMenuButton
-              size="lg"
-              variant="default"
-              className="border-2 rounded-md data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground h-[60px]"
-            >
-              <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-              </Avatar>
-              <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user.name}</span>
-                <span className="truncate text-xs">{user.email}</span>
-              </div>
-              {/* <ChevronsUpDown className="ml-auto size-4" /> */}
-              <div>
-                <Icon icon="uil:setting" className="size-5 ml-auto" />
-              </div>
-            </SidebarMenuButton>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg border-3 border-sidebar-accent"
-            side={isMobile ? 'bottom' : 'right'}
-            align="end"
-            sideOffset={4}
-          >
-            <DropdownMenuLabel className="p-0 font-normal">
-              <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+        <Dialog>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <SidebarMenuButton
+                size="lg"
+                variant="default"
+                className="border-2 rounded-md data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground h-[60px]"
+              >
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage src={user.avatar} alt={user.name} />
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
@@ -71,9 +60,31 @@ export function NavUser({
                   <span className="truncate font-medium">{user.name}</span>
                   <span className="truncate text-xs">{user.email}</span>
                 </div>
-              </div>
-            </DropdownMenuLabel>
-            {/* <DropdownMenuSeparator />
+                {/* <ChevronsUpDown className="ml-auto size-4" /> */}
+                <div>
+                  <Icon icon="uil:setting" className="size-5 ml-auto" />
+                </div>
+              </SidebarMenuButton>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg border-3 border-sidebar-accent"
+              side={isMobile ? 'bottom' : 'right'}
+              align="end"
+              sideOffset={4}
+            >
+              <DropdownMenuLabel className="p-0 font-normal">
+                <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                  <Avatar className="h-8 w-8 rounded-lg">
+                    <AvatarImage src={user.avatar} alt={user.name} />
+                    <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  </Avatar>
+                  <div className="grid flex-1 text-left text-sm leading-tight">
+                    <span className="truncate font-medium">{user.name}</span>
+                    <span className="truncate text-xs">{user.email}</span>
+                  </div>
+                </div>
+              </DropdownMenuLabel>
+              {/* <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <Sparkles />
@@ -81,12 +92,15 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator /> */}
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck />
-                Account
-              </DropdownMenuItem>
-              {/* <DropdownMenuItem>
+              <DropdownMenuGroup>
+
+                <DialogTrigger asChild>
+                  <DropdownMenuItem>
+                    <BadgeCheck />
+                    Account
+                  </DropdownMenuItem>
+                </DialogTrigger>
+                {/* <DropdownMenuItem>
                 <CreditCard />
                 Billing
               </DropdownMenuItem>
@@ -94,14 +108,25 @@ export function NavUser({
                 <Bell />
                 Notifications
               </DropdownMenuItem> */}
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <LogOut />
-              Log out
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <LogOut />
+                Log out
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <DialogContent className="sm:max-w-[425px] p-0 text-white">
+            <div className="sr-only">
+              <DialogTitle>Edit Profile</DialogTitle>
+              <DialogDescription>Make changes to your profile</DialogDescription>
+            </div>
+
+            {/* Panggil Component Profile */}
+            <Profile />
+          </DialogContent>
+
+        </Dialog>
       </SidebarMenuItem>
     </SidebarMenu>
   );

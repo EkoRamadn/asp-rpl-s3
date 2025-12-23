@@ -59,7 +59,7 @@ function Page() {
   }
 
   return (
-    <div className="constiner p-4 h-dvh flex flex-col">
+    <div className="constiner p-4 h-dvh flex flex-col shadcn-default">
       {/* <HeaderMobile className="mb-2.5"> */}
       {/* <div className="flex flex-row w-fit h-full items-center justify-center gap-[20px] dark:text-white"> */}
       {/* Button Histori Absensi */}
