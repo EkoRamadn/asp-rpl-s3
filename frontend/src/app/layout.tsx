@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html>
-      <body className={`${inter.variable} antialiased dark`}>
+      <body className={`${inter.variable} font-sans antialiased dark`}>
         <ErrorProvider>
           {children}
           <ErrorDialog />

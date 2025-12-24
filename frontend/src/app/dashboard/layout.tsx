@@ -4,6 +4,8 @@ import { Separator } from '@/components/ui/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import HeaderActions from './HeaderActions';
+import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -21,7 +23,7 @@ export default function DashboardLayout({ children }: Readonly<{ children: React
         <SidebarProvider>
           <AppSidebar />
           <SidebarInset className="border-2 border-sidebar-accent bg-background">
-            <header className="flex h-16 shrink-0 items-center gap-2">
+            <header className="flex flex-row shrink-0 w-full h-fit items-center justify-between p-[15px]">
               <div className="flex items-center gap-2 px-4">
                 <SidebarTrigger className="-ml-1 " />
                 <Separator
@@ -30,8 +32,10 @@ export default function DashboardLayout({ children }: Readonly<{ children: React
                 />
                 <HBread />
               </div>
+              <HeaderActions />
             </header>
-            <div className=" gap-4 p-4 pt-0">{children}</div>
+            <hr className="w-full border border-[#27272A]" />
+            <div className=" gap-4 p-0 pt-0">{children} <Toaster /></div>
           </SidebarInset>
         </SidebarProvider>
       </div>

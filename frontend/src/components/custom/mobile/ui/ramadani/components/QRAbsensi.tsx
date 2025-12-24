@@ -125,7 +125,7 @@ export default function QRAbsensi({ setNAbsen, setPick, sholat }: ScannerQRProps
           await sendData(scanned);
           stopScanner();
         },
-        () => {}
+        () => { }
       );
 
       const video = document.querySelector('#reader video') as HTMLVideoElement | null;
@@ -189,9 +189,9 @@ export default function QRAbsensi({ setNAbsen, setPick, sholat }: ScannerQRProps
     <div className="relative w-full h-full flex-1  overflow-hidden dark:bg-[rgb(21,20,25)]">
       {!isScanning && (
         <>
-          <div className="dark:text-stone-500 w-full h-full flex flex-col pt-[35%] items-center">
+          <div className="dark:text-white/60 w-full h-full flex flex-col pt-[35%] items-center">
             <Icon icon="mdi:camera-off-outline" width="34%" height="34%" />
-            <p className="font-mono text-md">Kamera Dalam Keadaan Mati</p>
+            <p className="font-mono text-md">The camera is turned off</p>
           </div>
         </>
       )}
