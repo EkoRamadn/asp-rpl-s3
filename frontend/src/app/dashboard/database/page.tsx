@@ -62,9 +62,12 @@ function Database() {
   };
 
   return (
-    <div className="shadcn-default px-[20px] h-screen flex flex-col overflow-hidden">
+    // FIX 1: Tambah pb-4 biar pagination gak mepet bawah layar
+    <div className="shadcn-default h-full flex flex-col overflow-hidden px-[20px]">
+
       <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full flex flex-col flex-1 overflow-hidden">
-        <div className="flex w-full h-fit gap-[20px] py-[20px] items-center">
+
+        <div className="flex w-full h-fit gap-[20px] py-[20px] items-center shrink-0">
           <div className="flex w-fit h-fit">
             <TabsList className="h-12">
               <TabsTrigger value="students" className="h-full gap-2 px-6">
@@ -102,59 +105,74 @@ function Database() {
           </Button>
         </div>
 
-        <TabsContent value="students" className="mt-0 flex-1 overflow-auto no-scrollbar">
-          <DataTable
-            columns={columns}
-            data={studentsData}
-            filterValue={keyword}
-            meta={{
-              onEdit: (data: any) => {
-                setEditingData(data);
-                setIsAddStudentOpen(true);
-              },
-              onDelete: (id: string) => {
-                setDeleteId(id);
-                setDeleteType("student");
-                setIsDeleteOpen(true);
-              },
-              onClearSearch: () => setKeyword("")
-            }}
-          />
+        {/* FIX 2 (PENTING): Hapus overflow-y-auto di sini.
+            Biarkan overflow-hidden, karena DataTable yang akan handle scroll di dalamnya.
+            Kalau ini tetep auto, Sticky Header di DataTable bakal rusak. */}
+
+        <TabsContent value="students" className="mt-0 flex-1 overflow-hidden">
+          <div className="h-full w-full overflow-hidden"> {/* Ganti auto jadi hidden */}
+            <DataTable
+              columns={columns}
+              data={studentsData}
+              filterValue={keyword}
+              meta={{
+                onEdit: (data: any) => {
+                  setEditingData(data);
+                  setIsAddStudentOpen(true);
+                },
+                onDelete: (id: string) => {
+                  setDeleteId(id);
+                  setDeleteType("student");
+                  setIsDeleteOpen(true);
+                },
+                onClearSearch: () => setKeyword("")
+              }}
+            />
+          </div>
         </TabsContent>
 
-        <TabsContent value="classes" className="mt-0 flex-1 overflow-auto no-scrollbar">
-          <DataTable
-            columns={columnsClasses}
-            data={classesData}
-            filterValue={keyword}
-            meta={{
-              onEdit: (data: any) => {
-                setEditingData(data);
-                setIsAddClassOpen(true);
-              },
-              onDelete: (id: string) => {
-                setDeleteId(id);
-                setDeleteType("class");
-                setIsDeleteOpen(true);
-              },
-              onClearSearch: () => setKeyword("")
-            }}
-          />
+        <TabsContent value="classes" className="mt-0 flex-1 overflow-hidden">
+          <div className="h-full w-full overflow-hidden"> {/* Ganti auto jadi hidden */}
+            <DataTable
+              columns={columnsClasses}
+              data={classesData}
+              filterValue={keyword}
+              meta={{
+                onEdit: (data: any) => {
+                  setEditingData(data);
+                  setIsAddClassOpen(true);
+                },
+                onDelete: (id: string) => {
+                  setDeleteId(id);
+                  setDeleteType("class");
+                  setIsDeleteOpen(true);
+                },
+                onClearSearch: () => setKeyword("")
+              }}
+            />
+          </div>
         </TabsContent>
 
-        <TabsContent value="users" className="mt-0 flex-1 overflow-auto no-scrollbar">
-          <DataTable columns={columnsUsers} data={usersData} filterValue={keyword} meta={{
-            onEdit: (data: any) => {
-              setEditingData(data);
-              setIsAddUserOpen(true);
-            },
-            onDelete: (id: string) => {
-              setDeleteId(id);
-              setDeleteType("user");
-              setIsDeleteOpen(true);
-            },
-            onClearSearch: () => setKeyword("")
-          }} />
+        <TabsContent value="users" className="mt-0 flex-1 overflow-hidden">
+          <div className="h-full w-full overflow-hidden"> {/* Ganti auto jadi hidden */}
+            <DataTable
+              columns={columnsUsers}
+              data={usersData}
+              filterValue={keyword}
+              meta={{
+                onEdit: (data: any) => {
+                  setEditingData(data);
+                  setIsAddUserOpen(true);
+                },
+                onDelete: (id: string) => {
+                  setDeleteId(id);
+                  setDeleteType("user");
+                  setIsDeleteOpen(true);
+                },
+                onClearSearch: () => setKeyword("")
+              }}
+            />
+          </div>
         </TabsContent>
 
         <AddStudentModal isOpen={isAddStudentOpen} onClose={() => setIsAddStudentOpen(false)} initialData={editingData} />
