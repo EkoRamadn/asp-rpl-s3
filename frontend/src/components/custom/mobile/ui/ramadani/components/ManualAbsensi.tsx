@@ -6,7 +6,7 @@ import { getDataSiswi } from '../logic/getDataSiswi';
 import { Icon } from '@iconify/react';
 import { AbsensiForm } from './AbsensiForm';
 import { Loading } from './Loading';
-import { InputForm } from '@/components/custom/ui/input-form';
+import { Input as Input } from "@/components/ui/input";
 
 
 interface ManualInputProps {
@@ -65,7 +65,7 @@ export const ManualAbsensi = ({ setPick, setNAbsen, sholatTime }: ManualInputPro
     <div className="p-2 flex-1 flex flex-col h-full">
       <form className="mb-4 relative w-full h-max">
 
-        <InputForm
+        <Input
           placeholder="Search Name/NISN: "
           className="flex w-full h-fit items-center justify-between p-[10px] text-white text-[14px] placeholder:text-white/50 rounded-[12px] outline-none border border-[#3F3F3F]"
           value={search}
@@ -126,49 +126,11 @@ const Item = ({ siswi, handleClick }: ItemProps) => {
     //     <p className="text-[14px] font-medium">{siswi.nama_lengkap}</p>
     //   </button>
     // </div>
-    <>
-      <li className="bg-[#27272A]/30 border border-[#27272A] rounded-[10px] p-[10px] flex items-start justify-start">
-        <button className="flex flex-col gap-[10px] w-full text-left" onClick={() => handleClick({ siswi })}>
-          <p className="text-[14px] font-medium text-white">{siswi.nama_lengkap}</p>
-          <p className="text-[12px] font-normal text-white/60">{siswi.kelas} ({siswi.nis})</p>
-        </button>
-      </li>
-      <li className="bg-[#27272A]/30 border border-[#27272A] rounded-[10px] p-[10px] flex items-start justify-start">
-        <button className="flex flex-col gap-[10px] w-full text-left" onClick={() => handleClick({ siswi })}>
-          <p className="text-[14px] font-medium text-white">Handika Rado Arganata</p>
-          <p className="text-[12px] font-normal text-white/60">XI MIPA 2 (0123456789)</p>
-        </button>
-      </li>
-      <li className="bg-[#27272A]/30 border border-[#27272A] rounded-[10px] p-[10px] flex items-start justify-start">
-        <button className="flex flex-col gap-[10px] w-full text-left" onClick={() => handleClick({ siswi })}>
-          <p className="text-[14px] font-medium text-white">Handika Rado Arganata</p>
-          <p className="text-[12px] font-normal text-white/60">XI MIPA 2 (0123456789)</p>
-        </button>
-      </li>
-      <li className="bg-[#27272A]/30 border border-[#27272A] rounded-[10px] p-[10px] flex items-start justify-start">
-        <button className="flex flex-col gap-[10px] w-full text-left" onClick={() => handleClick({ siswi })}>
-          <p className="text-[14px] font-medium text-white">Handika Rado Arganata</p>
-          <p className="text-[12px] font-normal text-white/60">XI MIPA 2 (0123456789)</p>
-        </button>
-      </li>
-      <li className="bg-[#27272A]/30 border border-[#27272A] rounded-[10px] p-[10px] flex items-start justify-start">
-        <button className="flex flex-col gap-[10px] w-full text-left" onClick={() => handleClick({ siswi })}>
-          <p className="text-[14px] font-medium text-white">Handika Rado Arganata</p>
-          <p className="text-[12px] font-normal text-white/60">XI MIPA 2 (0123456789)</p>
-        </button>
-      </li>
-      <li className="bg-[#27272A]/30 border border-[#27272A] rounded-[10px] p-[10px] flex items-start justify-start">
-        <button className="flex flex-col gap-[10px] w-full text-left" onClick={() => handleClick({ siswi })}>
-          <p className="text-[14px] font-medium text-white">Handika Rado Arganata</p>
-          <p className="text-[12px] font-normal text-white/60">XI MIPA 2 (0123456789)</p>
-        </button>
-      </li>
-      <li className="bg-[#27272A]/30 border border-[#27272A] rounded-[10px] p-[10px] flex items-start justify-start">
-        <button className="flex flex-col gap-[10px] w-full text-left" onClick={() => handleClick({ siswi })}>
-          <p className="text-[14px] font-medium text-white">Handika Rado Arganata</p>
-          <p className="text-[12px] font-normal text-white/60">XI MIPA 2 (0123456789)</p>
-        </button>
-      </li>
-    </>
+    <li className="bg-[#27272A]/30 border border-[#27272A] rounded-[10px] p-[10px] flex items-start justify-start shadcn-default">
+      <button className="flex flex-col gap-[10px] w-full text-left" onClick={() => handleClick({ siswi })}>
+        <p className="text-[14px] font-medium text-white">{siswi.nama_lengkap}</p>
+        <p className="text-[12px] font-normal text-white/60">{siswi.kelas} ({siswi.nis})</p>
+      </button>
+    </li>
   );
 };

@@ -18,27 +18,31 @@ const inter = Inter({
 
 export default function DashboardLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div>
-      <div className={`${inter.variable} antialiased`}>
-        <SidebarProvider>
-          <AppSidebar />
-          <SidebarInset className="border-2 border-sidebar-accent bg-background">
-            <header className="flex flex-row shrink-0 w-full h-fit items-center justify-between p-[15px]">
-              <div className="flex items-center gap-2 px-4">
-                <SidebarTrigger className="-ml-1 " />
-                <Separator
-                  orientation="vertical"
-                  className="mr-2 data-[orientation=vertical]:h-4"
-                />
-                <HBread />
-              </div>
-              <HeaderActions />
-            </header>
-            <hr className="w-full border border-[#27272A]" />
-            <div className=" gap-4 p-0 pt-0">{children} <Toaster /></div>
-          </SidebarInset>
-        </SidebarProvider>
-      </div>
+    <div className={`${inter.variable} antialiased h-screen w-full flex overflow-hidden`}>
+      <SidebarProvider>
+        <AppSidebar />
+
+        <SidebarInset className="border-2 border-sidebar-accent bg-background flex flex-col h-full overflow-hidden">
+
+          <header className="flex flex-row shrink-0 w-full h-fit items-center justify-between p-[10px] border-b border-[#27272A]">
+            <div className="flex items-center gap-2 px-4">
+              <SidebarTrigger className="-ml-1 " />
+              <Separator
+                orientation="vertical"
+                className="mr-2 data-[orientation=vertical]:h-4"
+              />
+              <HBread />
+            </div>
+            <HeaderActions />
+          </header>
+
+          <div className="flex-1 overflow-hidden p-0 relative">
+            {children}
+            <Toaster />
+          </div>
+
+        </SidebarInset>
+      </SidebarProvider>
     </div>
   );
 }

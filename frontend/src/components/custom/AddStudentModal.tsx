@@ -131,7 +131,7 @@ export default function AddStudentModal({ isOpen, onClose, initialData }: AddStu
                                             <FormControl>
                                                 <Input
                                                     placeholder="Full Name"
-                                                    className={` h-12 focus-visible:ring-1 ${fieldState.error ? 'ring-1 ring-red-500' : ''}`}
+                                                    className={`shadcn-default h-12 focus-visible:ring-1 ${fieldState.error ? 'ring-1 ring-red-500' : ''}`}
                                                     {...field}
                                                 />
                                             </FormControl>
@@ -153,7 +153,7 @@ export default function AddStudentModal({ isOpen, onClose, initialData }: AddStu
                                             <FormControl>
                                                 <Input
                                                     placeholder="0123456789"
-                                                    className={`bg-[#27272A] h-12 focus-visible:ring-1 ${fieldState.error ? 'ring-1 ring-red-500' : ''}`}
+                                                    className={`shadcn-default h-12 focus-visible:ring-1 ${fieldState.error ? 'ring-1 ring-red-500' : ''}`}
                                                     {...field}
                                                 />
                                             </FormControl>
@@ -176,11 +176,11 @@ export default function AddStudentModal({ isOpen, onClose, initialData }: AddStu
 
                                             <Select onValueChange={field.onChange} value={field.value}>
                                                 <FormControl>
-                                                    <SelectTrigger className="w-full !h-12 text-white">
+                                                    <SelectTrigger className="shadcn-default w-full !h-12 text-white">
                                                         <SelectValue placeholder="Select Class" />
                                                     </SelectTrigger>
                                                 </FormControl>
-                                                <SelectContent className="bg-[#27272A] border-[#3F3F3F] text-white">
+                                                <SelectContent className="shadcn-default bg-[#27272A] border-[#3F3F3F] text-white">
                                                     <SelectItem value="X MIPA 1">X MIPA 1</SelectItem>
                                                     <SelectItem value="XI MIPA 1">XI MIPA 1</SelectItem>
                                                     <SelectItem value="XII MIPA 1">XII MIPA 1</SelectItem>
@@ -203,13 +203,13 @@ export default function AddStudentModal({ isOpen, onClose, initialData }: AddStu
 
                                             <Select onValueChange={field.onChange} value={field.value}>
                                                 <FormControl>
-                                                    <SelectTrigger className="w-full !h-12 text-white">
+                                                    <SelectTrigger className="shadcn-default w-full !h-12 text-white">
                                                         <SelectValue placeholder="Select Status" />
                                                     </SelectTrigger>
                                                 </FormControl>
-                                                <SelectContent className="bg-[#27272A] border-[#3F3F3F] text-white">
-                                                    <SelectItem value="Active">Active</SelectItem>
-                                                    <SelectItem value="Unactive">Unactive</SelectItem>
+                                                <SelectContent className="shadcn-default bg-[#27272A] border-[#3F3F3F] text-white">
+                                                    <SelectItem value="active">Active</SelectItem>
+                                                    <SelectItem value="unactive">Unactive</SelectItem>
                                                 </SelectContent>
                                             </Select>
                                         </FormItem>
@@ -230,7 +230,7 @@ export default function AddStudentModal({ isOpen, onClose, initialData }: AddStu
                                         <FormControl>
                                             <Textarea
                                                 placeholder="Type your notes here."
-                                                className={`min-h-[100px] resize-none ${fieldState.error ? 'ring-1 ring-red-500' : ''}`}
+                                                className={`shadcn-default min-h-[100px] resize-none ${fieldState.error ? 'ring-1 ring-red-500' : ''}`}
                                                 {...field}
                                             />
                                         </FormControl>
@@ -271,13 +271,13 @@ export default function AddStudentModal({ isOpen, onClose, initialData }: AddStu
                         <AlertDialogCancel
                             className="bg-transparent border-[#3F3F3F] text-white hover:bg-[#27272A] h-12 px-6"
                         >
-                            No, Cancel
+                            Cancel
                         </AlertDialogCancel>
                         <Button
                             onClick={handleFinalSave}
                             className="bg-white text-black hover:bg-white/90 h-12 px-6 font-semibold"
                         >
-                            Yes, Save Data
+                            Save
                         </Button>
                     </div>
                 </AlertDialogContent>
